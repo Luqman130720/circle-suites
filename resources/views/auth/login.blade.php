@@ -416,12 +416,12 @@
 
             refreshThemeButton();
 
-            @if ($errors->any())
-                const firstCard = document.querySelector('.ws-card');
-                if (firstCard) {
-                    firstCard.click();
-                }
-            @endif
+            // @if ($errors->any())
+            //     const firstCard = document.querySelector('.ws-card');
+            //     if (firstCard) {
+            //         firstCard.click();
+            //     }
+            // @endif
         });
     </script>
 </body>
