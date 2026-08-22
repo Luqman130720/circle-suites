@@ -8,7 +8,7 @@ Route::get('/', function () {
 });
 
 Route::get('/login', function () {
-    return view('auth.login', ['name' => 'login']);
+    return view('pages.auth.login', ['name' => 'login']);
 });
 
 Route::post('/login', function () {
@@ -16,7 +16,7 @@ Route::post('/login', function () {
     return redirect('/')->name ('login.post');
 });
 Route::get('/register', function () {
-    return view('auth.register', ['name' => 'register']);
+    return view('pages.auth.register', ['name' => 'register']);
 });
 
 
