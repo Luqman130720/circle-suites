@@ -41,9 +41,9 @@
 
 <body class="g-sidenav-show  bg-gray-100">
 
-  <x-partials.circle.admin.sidebar />
+  <x-partials.field.admin.sidebar />
   <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
-    <x-partials.circle.admin.navbar />
+    <x-partials.field.admin.navbar />
     {{ $slot }}
   </main>
   <div class="fixed-plugin">

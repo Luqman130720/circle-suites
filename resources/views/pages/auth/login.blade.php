@@ -3,42 +3,100 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <meta name="description" content="Masuk ke Circle Suites Digital Operations Platform.">
-    <meta name="theme-color" content="#071426">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="description"
+        content="Masuk ke Circle Suites Digital Operations Platform.">
+
+    <meta name="theme-color"
+        content="#071426">
 
     <title>Masuk — Circle Suites</title>
 
+    {{-- =========================================================
+    | Theme Initialization
+    ========================================================== --}}
     <script>
         (() => {
-            const savedTheme = localStorage.getItem('circle-theme');
-            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
 
-            document.documentElement.classList.toggle('light', theme === 'light');
-            document.documentElement.classList.toggle('dark', theme === 'dark');
-            document.documentElement.style.colorScheme = theme;
+            const savedTheme =
+                localStorage.getItem('circle-theme');
+
+            const systemPrefersDark =
+                window.matchMedia(
+                    '(prefers-color-scheme: dark)'
+                ).matches;
+
+            const theme =
+                savedTheme ||
+                (systemPrefersDark ? 'dark' : 'light');
+
+            document.documentElement.classList.toggle(
+                'light',
+                theme === 'light'
+            );
+
+            document.documentElement.classList.toggle(
+                'dark',
+                theme === 'dark'
+            );
+
+            document.documentElement.style.colorScheme =
+                theme;
+
         })();
     </script>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite([
+        'resources/css/app.css',
+        'resources/js/app.js'
+    ])
 
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
+
+        /* =====================================================
+        | Background Grid
+        ====================================================== */
+
         .auth-grid {
             background-image:
-                linear-gradient(rgba(148, 163, 184, .055) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(148, 163, 184, .055) 1px, transparent 1px);
+                linear-gradient(
+                    rgba(148, 163, 184, .055) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(148, 163, 184, .055) 1px,
+                    transparent 1px
+                );
+
             background-size: 44px 44px;
-            mask-image: linear-gradient(to bottom, black 10%, transparent 95%);
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    black 10%,
+                    transparent 95%
+                );
         }
 
-        /* Support full height on mobile browsers */
+
+        /* =====================================================
+        | Mobile Height
+        ====================================================== */
+
         .min-h-dvh {
             min-height: 100dvh;
         }
+
+
+        /* =====================================================
+        | LIGHT MODE
+        ====================================================== */
 
         html.light body {
             background: #f4f7fc !important;
@@ -47,15 +105,29 @@
 
         html.light #pageBackdrop {
             background:
-                radial-gradient(circle at 15% 15%, rgba(37, 99, 235, .14), transparent 30%),
-                radial-gradient(circle at 85% 20%, rgba(14, 165, 233, .10), transparent 28%),
-                linear-gradient(180deg, #f8fbff 0%, #f3f7fc 100%) !important;
+                radial-gradient(
+                    circle at 15% 15%,
+                    rgba(37, 99, 235, .14),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(14, 165, 233, .10),
+                    transparent 28%
+                ),
+                linear-gradient(
+                    180deg,
+                    #f8fbff 0%,
+                    #f3f7fc 100%
+                ) !important;
         }
 
         html.light .auth-panel {
             background: rgba(255, 255, 255, .95) !important;
             border-color: rgba(148, 163, 184, .25) !important;
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05) !important;
+            box-shadow:
+                0 20px 40px -15px
+                rgba(0, 0, 0, .05) !important;
         }
 
         html.light .text-white {
@@ -76,11 +148,13 @@
         }
 
         html.light [class*="border-white/"] {
-            border-color: rgba(148, 163, 184, .25) !important;
+            border-color:
+                rgba(148, 163, 184, .25) !important;
         }
 
         html.light [class*="bg-white/"] {
-            background-color: rgba(248, 250, 252, .88) !important;
+            background-color:
+                rgba(248, 250, 252, .88) !important;
         }
 
         html.light .auth-input {
@@ -92,80 +166,264 @@
         html.light .auth-input::placeholder {
             color: #94a3b8 !important;
         }
+
     </style>
+
 </head>
 
-<body class="min-h-screen min-h-dvh bg-[#07111f] font-sans text-slate-100 antialiased selection:bg-blue-500 selection:text-white flex flex-col justify-center py-4 sm:py-8">
 
-    <div id="pageBackdrop"
+<body
+    class="min-h-screen min-h-dvh
+    bg-[#07111f]
+    font-sans
+    text-slate-100
+    antialiased
+    selection:bg-blue-500
+    selection:text-white
+    flex
+    flex-col
+    justify-center
+    py-4
+    sm:py-8">
+
+
+    {{-- =========================================================
+    | BACKGROUND
+    ========================================================== --}}
+
+    <div
+        id="pageBackdrop"
         aria-hidden="true"
-        class="pointer-events-none fixed inset-0 -z-20 bg-[radial-gradient(circle_at_15%_15%,_rgba(37,99,235,0.20),_transparent_30%),radial-gradient(circle_at_85%_20%,_rgba(14,165,233,0.12),_transparent_28%),linear-gradient(180deg,_#071426_0%,_#08111f_100%)]">
+        class="pointer-events-none fixed inset-0 -z-20
+        bg-[radial-gradient(circle_at_15%_15%,_rgba(37,99,235,0.20),_transparent_30%),radial-gradient(circle_at_85%_20%,_rgba(14,165,233,0.12),_transparent_28%),linear-gradient(180deg,_#071426_0%,_#08111f_100%)]">
     </div>
 
-    <div aria-hidden="true"
+
+    <div
+        aria-hidden="true"
         class="auth-grid pointer-events-none fixed inset-0 -z-10">
     </div>
 
-    <main class="mx-auto w-full max-w-7xl px-3 sm:px-6 lg:px-10 my-auto">
 
-        <div class="grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
 
-            <!-- SECTION KIRI: Informasi Platform -->
-            <section class="hidden lg:flex lg:flex-col lg:justify-center">
+    {{-- =========================================================
+    | MAIN
+    ========================================================== --}}
 
-                <a href="{{ url('/') }}"
+    <main
+        class="mx-auto
+        w-full
+        max-w-7xl
+        px-3
+        sm:px-6
+        lg:px-10
+        my-auto">
+
+
+        <div
+            class="grid
+            items-center
+            gap-8
+            lg:grid-cols-[1.1fr_0.9fr]
+            lg:gap-12">
+
+
+            {{-- =================================================
+            | LEFT INFORMATION
+            ================================================== --}}
+
+            <section
+                class="hidden
+                lg:flex
+                lg:flex-col
+                lg:justify-center">
+
+
+                {{-- Logo --}}
+
+                <a
+                    href="{{ url('/') }}"
                     class="inline-flex items-center gap-3"
                     aria-label="Kembali ke Circle Suites">
 
-                    <span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-700 shadow-lg shadow-blue-950/30">
-                        <i data-lucide="orbit" class="h-5 w-5 text-white"></i>
+                    <span
+                        class="flex
+                        h-11
+                        w-11
+                        items-center
+                        justify-center
+                        rounded-2xl
+                        bg-gradient-to-br
+                        from-blue-500
+                        via-blue-600
+                        to-indigo-700
+                        shadow-lg
+                        shadow-blue-950/30">
+
+                        <i
+                            data-lucide="orbit"
+                            class="h-5 w-5 text-white">
+                        </i>
+
                     </span>
 
-                    <span class="text-2xl font-bold tracking-[-0.04em] text-white">
-                        Circle<span class="text-sky-400">Suites</span>
+
+                    <span
+                        class="text-2xl
+                        font-bold
+                        tracking-[-0.04em]
+                        text-white">
+
+                        Circle<span class="text-sky-400">
+                            Suites
+                        </span>
+
                     </span>
 
                 </a>
 
+
+                {{-- Description --}}
+
                 <div class="mt-8">
 
-                    <span class="inline-flex items-center gap-2 rounded-full border border-sky-300/20 bg-sky-400/10 px-3.5 py-1.5 text-xs font-semibold text-sky-300">
-                        <i data-lucide="shield-check" class="h-3.5 w-3.5"></i>
+                    <span
+                        class="inline-flex
+                        items-center
+                        gap-2
+                        rounded-full
+                        border
+                        border-sky-300/20
+                        bg-sky-400/10
+                        px-3.5
+                        py-1.5
+                        text-xs
+                        font-semibold
+                        text-sky-300">
+
+                        <i
+                            data-lucide="shield-check"
+                            class="h-3.5 w-3.5">
+                        </i>
+
                         Secure Digital Workspace
+
                     </span>
 
-                    <h1 class="mt-5 text-3xl font-extrabold leading-[1.15] tracking-[-0.04em] text-white xl:text-5xl">
-                        Satu akses untuk seluruh aktivitas operasional.
+
+                    <h1
+                        class="mt-5
+                        text-3xl
+                        font-extrabold
+                        leading-[1.15]
+                        tracking-[-0.04em]
+                        text-white
+                        xl:text-5xl">
+
+                        Satu akses untuk seluruh
+                        aktivitas operasional.
+
                     </h1>
 
-                    <p class="mt-4 max-w-lg text-sm leading-relaxed text-slate-400">
-                        Masuk untuk mengelola proyek, inventaris, keuangan, pekerjaan lapangan, dan aktivitas divisi melalui satu sumber data yang terintegrasi.
+
+                    <p
+                        class="mt-4
+                        max-w-lg
+                        text-sm
+                        leading-relaxed
+                        text-slate-400">
+
+                        Masuk untuk mengelola proyek,
+                        inventaris, keuangan, pekerjaan
+                        lapangan, dan aktivitas divisi
+                        melalui satu sumber data yang
+                        terintegrasi.
+
                     </p>
 
-                    <div class="mt-8 grid grid-cols-2 gap-3.5 max-w-lg">
+
+                    {{-- Feature Cards --}}
+
+                    <div
+                        class="mt-8
+                        grid
+                        max-w-lg
+                        grid-cols-2
+                        gap-3.5">
 
                         @foreach ([
-                        ['Role-Based Access', 'Akses aman sesuai peran divisi', 'shield-check'],
-                        ['Real-Time Data', 'Sinkronisasi data seketika', 'activity'],
-                        ['Audit Activity', 'Pencatatan log aktivitas lengkap', 'history'],
-                        ['Integrated Modules', 'Ekosistem modul terhubung', 'blocks'],
+                            [
+                                'Role-Based Access',
+                                'Akses aman sesuai peran divisi',
+                                'shield-check'
+                            ],
+                            [
+                                'Real-Time Data',
+                                'Sinkronisasi data seketika',
+                                'activity'
+                            ],
+                            [
+                                'Audit Activity',
+                                'Pencatatan log aktivitas lengkap',
+                                'history'
+                            ],
+                            [
+                                'Integrated Modules',
+                                'Ekosistem modul terhubung',
+                                'blocks'
+                            ],
                         ] as [$label, $desc, $icon])
 
-                        <div class="rounded-xl border border-white/10 bg-white/[0.04] p-3.5 backdrop-blur transition hover:border-white/20">
+                            <div
+                                class="rounded-xl
+                                border
+                                border-white/10
+                                bg-white/[0.04]
+                                p-3.5
+                                backdrop-blur
+                                transition
+                                hover:border-white/20">
 
-                            <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-400/10 text-sky-400">
-                                <i data-lucide="{{ $icon }}" class="h-4 w-4"></i>
+                                <div
+                                    class="flex
+                                    h-8
+                                    w-8
+                                    items-center
+                                    justify-center
+                                    rounded-lg
+                                    bg-sky-400/10
+                                    text-sky-400">
+
+                                    <i
+                                        data-lucide="{{ $icon }}"
+                                        class="h-4 w-4">
+                                    </i>
+
+                                </div>
+
+
+                                <p
+                                    class="mt-2.5
+                                    text-xs
+                                    font-semibold
+                                    text-slate-200">
+
+                                    {{ $label }}
+
+                                </p>
+
+
+                                <p
+                                    class="mt-0.5
+                                    text-[11px]
+                                    leading-tight
+                                    text-slate-400">
+
+                                    {{ $desc }}
+
+                                </p>
+
                             </div>
-
-                            <p class="mt-2.5 text-xs font-semibold text-slate-200">
-                                {{ $label }}
-                            </p>
-
-                            <p class="mt-0.5 text-[11px] text-slate-400 leading-tight">
-                                {{ $desc }}
-                            </p>
-
-                        </div>
 
                         @endforeach
 
@@ -176,349 +434,1025 @@
             </section>
 
 
-            <!-- SECTION KANAN: Panel Auth -->
-            <section class="auth-panel mx-auto w-full max-w-[420px] sm:max-w-md lg:max-w-md rounded-2xl sm:rounded-3xl border border-white/10 bg-[#0b182a]/90 p-4 sm:p-7 shadow-2xl shadow-black/30 backdrop-blur-xl transition-all duration-300">
 
-                <!-- Header Panel -->
-                <div class="flex items-center justify-between">
+            {{-- =================================================
+            | AUTH PANEL
+            ================================================== --}}
 
-                    <a href="{{ url('/') }}"
+            <section
+                class="auth-panel
+                mx-auto
+                w-full
+                max-w-[420px]
+                rounded-2xl
+                border
+                border-white/10
+                bg-[#0b182a]/90
+                p-4
+                shadow-2xl
+                shadow-black/30
+                backdrop-blur-xl
+                transition-all
+                duration-300
+                sm:max-w-md
+                sm:rounded-3xl
+                sm:p-7">
+
+
+                {{-- Panel Header --}}
+
+                <div
+                    class="flex
+                    items-center
+                    justify-between">
+
+
+                    {{-- Mobile Logo --}}
+
+                    <a
+                        href="{{ url('/') }}"
                         class="flex items-center gap-2 lg:hidden">
 
-                        <span class="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl bg-blue-600 text-white">
-                            <i data-lucide="orbit" class="h-4 w-4"></i>
+                        <span
+                            class="flex
+                            h-8
+                            w-8
+                            items-center
+                            justify-center
+                            rounded-xl
+                            bg-blue-600
+                            text-white">
+
+                            <i
+                                data-lucide="orbit"
+                                class="h-4 w-4">
+                            </i>
+
                         </span>
 
-                        <span class="text-sm sm:text-base font-bold text-white">
-                            Circle<span class="text-sky-400">Suites</span>
+
+                        <span
+                            class="text-sm
+                            font-bold
+                            text-white">
+
+                            Circle<span class="text-sky-400">
+                                Suites
+                            </span>
+
                         </span>
 
                     </a>
 
-                    <button id="themeToggle"
+
+                    {{-- Theme --}}
+
+                    <button
+                        id="themeToggle"
                         type="button"
-                        class="ml-auto inline-flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white transition hover:bg-white/10"
+                        class="ml-auto
+                        inline-flex
+                        h-8
+                        w-8
+                        items-center
+                        justify-center
+                        rounded-xl
+                        border
+                        border-white/10
+                        bg-white/5
+                        text-white
+                        transition
+                        hover:bg-white/10"
                         aria-label="Ubah tema">
 
-                        <i data-lucide="sun" class="h-4 w-4"></i>
+                        <i
+                            data-lucide="sun"
+                            class="h-4 w-4">
+                        </i>
 
                     </button>
 
                 </div>
 
 
+
+                {{-- Panel Title --}}
+
                 <div class="mt-3 sm:mt-4">
 
-                    <p class="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-sky-400">
+                    <p
+                        class="text-[10px]
+                        font-semibold
+                        uppercase
+                        tracking-wider
+                        text-sky-400
+                        sm:text-xs">
+
                         Selamat datang kembali
+
                     </p>
 
-                    <h2 class="mt-0.5 sm:mt-1 text-xl sm:text-2xl font-bold tracking-[-0.03em] text-white">
+
+                    <h2
+                        class="mt-0.5
+                        text-xl
+                        font-bold
+                        tracking-[-0.03em]
+                        text-white
+                        sm:mt-1
+                        sm:text-2xl">
+
                         Pilih Workspace
+
                     </h2>
 
-                    <p class="mt-0.5 sm:mt-1 text-[11px] sm:text-xs leading-normal sm:leading-5 text-slate-400">
-                        Pilih modul divisi Anda terlebih dahulu untuk menampilkan form login.
+
+                    <p
+                        class="mt-0.5
+                        text-[11px]
+                        leading-normal
+                        text-slate-400
+                        sm:mt-1
+                        sm:text-xs
+                        sm:leading-5">
+
+                        Pilih modul divisi Anda terlebih
+                        dahulu untuk menampilkan form login.
+
                     </p>
 
                 </div>
 
+
+
+                {{-- =================================================
+                | SESSION STATUS
+                ================================================== --}}
 
                 @if (session('status'))
 
-                <div class="mt-3 sm:mt-4 rounded-xl border border-emerald-400/20 bg-emerald-400/10 px-3 py-2 text-xs text-emerald-300">
+                    <div
+                        class="mt-3
+                        rounded-xl
+                        border
+                        border-emerald-400/20
+                        bg-emerald-400/10
+                        px-3
+                        py-2
+                        text-xs
+                        text-emerald-300
+                        sm:mt-4">
 
-                    {{ session('status') }}
-
-                </div>
-
-                @endif
-
-
-                @if ($errors->any())
-
-                <div class="mt-3 sm:mt-4 rounded-xl border border-rose-400/20 bg-rose-400/10 px-3 py-2 text-xs text-rose-300">
-
-                    <p class="font-semibold">
-                        Login belum berhasil.
-                    </p>
-
-                    <ul class="mt-1 list-disc space-y-0.5 pl-4 text-[11px]">
-
-                        @foreach ($errors->all() as $error)
-
-                        <li>
-                            {{ $error }}
-                        </li>
-
-                        @endforeach
-
-                    </ul>
-
-                </div>
-
-                @endif
-
-
-                <!-- Grid Selector Workspace -->
-                <div class="mt-3 sm:mt-4">
-
-                    <div class="grid grid-cols-3 gap-1.5 sm:gap-2">
-
-                        <!-- 1. Circle -->
-                        <button type="button"
-                            onclick="selectWorkspace(this, 'circle', 'Circle', 'layout-grid', 'border-blue-500', 'bg-blue-500/10', 'text-blue-400')"
-                            class="ws-card group relative flex flex-col items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] p-1.5 sm:p-2.5 text-center transition-all duration-200 hover:border-blue-500/50 hover:bg-white/[0.08]">
-
-                            <div class="mb-1 flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-lg bg-blue-500/10 text-blue-400 transition-transform group-hover:scale-110">
-                                <i data-lucide="layout-grid" class="h-3.5 w-3.5"></i>
-                            </div>
-
-                            <span class="text-[10px] sm:text-[11px] font-medium text-slate-200 group-hover:text-white leading-tight">
-                                Circle
-                            </span>
-
-                            <span class="line-clamp-1 text-[8px] sm:text-[9px] text-slate-400 mt-0.5">
-                                Project & Ops
-                            </span>
-
-                        </button>
-
-
-                        <!-- 2. Inventory -->
-                        <button type="button"
-                            onclick="selectWorkspace(this, 'inventory', 'Inventory', 'boxes', 'border-amber-500', 'bg-amber-500/10', 'text-amber-400')"
-                            class="ws-card group relative flex flex-col items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] p-1.5 sm:p-2.5 text-center transition-all duration-200 hover:border-amber-500/50 hover:bg-white/[0.08]">
-
-                            <div class="mb-1 flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-lg bg-amber-500/10 text-amber-400 transition-transform group-hover:scale-110">
-                                <i data-lucide="boxes" class="h-3.5 w-3.5"></i>
-                            </div>
-
-                            <span class="text-[10px] sm:text-[11px] font-medium text-slate-200 group-hover:text-white leading-tight">
-                                Inventory
-                            </span>
-
-                            <span class="line-clamp-1 text-[8px] sm:text-[9px] text-slate-400 mt-0.5">
-                                Warehouse
-                            </span>
-
-                        </button>
-
-
-                        <!-- 3. Finance -->
-                        <button type="button"
-                            onclick="selectWorkspace(this, 'finance', 'Finance', 'wallet', 'border-emerald-500', 'bg-emerald-500/10', 'text-emerald-400')"
-                            class="ws-card group relative flex flex-col items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] p-1.5 sm:p-2.5 text-center transition-all duration-200 hover:border-emerald-500/50 hover:bg-white/[0.08]">
-
-                            <div class="mb-1 flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400 transition-transform group-hover:scale-110">
-                                <i data-lucide="wallet" class="h-3.5 w-3.5"></i>
-                            </div>
-
-                            <span class="text-[10px] sm:text-[11px] font-medium text-slate-200 group-hover:text-white leading-tight">
-                                Finance
-                            </span>
-
-                            <span class="line-clamp-1 text-[8px] sm:text-[9px] text-slate-400 mt-0.5">
-                                Control
-                            </span>
-
-                        </button>
-
-
-                        <!-- 4. Field Operations -->
-                        <button type="button"
-                            onclick="selectWorkspace(this, 'field_ops', 'Field Operations', 'map-pin', 'border-purple-500', 'bg-purple-500/10', 'text-purple-400')"
-                            class="ws-card group relative flex flex-col items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] p-1.5 sm:p-2.5 text-center transition-all duration-200 hover:border-purple-500/50 hover:bg-white/[0.08]">
-
-                            <div class="mb-1 flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-lg bg-purple-500/10 text-purple-400 transition-transform group-hover:scale-110">
-                                <i data-lucide="map-pin" class="h-3.5 w-3.5"></i>
-                            </div>
-
-                            <span class="text-[10px] sm:text-[11px] font-medium text-slate-200 group-hover:text-white leading-tight">
-                                Field Ops
-                            </span>
-
-                            <span class="line-clamp-1 text-[8px] sm:text-[9px] text-slate-400 mt-0.5">
-                                Activity
-                            </span>
-
-                        </button>
-
-
-                        <!-- 5. Human Resources -->
-                        <button type="button"
-                            onclick="selectWorkspace(this, 'hr', 'Human Resources', 'users', 'border-rose-500', 'bg-rose-500/10', 'text-rose-400')"
-                            class="ws-card group relative flex flex-col items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] p-1.5 sm:p-2.5 text-center transition-all duration-200 hover:border-rose-500/50 hover:bg-white/[0.08]">
-
-                            <div class="mb-1 flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-lg bg-rose-500/10 text-rose-400 transition-transform group-hover:scale-110">
-                                <i data-lucide="users" class="h-3.5 w-3.5"></i>
-                            </div>
-
-                            <span class="text-[10px] sm:text-[11px] font-medium text-slate-200 group-hover:text-white leading-tight">
-                                HR
-                            </span>
-
-                            <span class="line-clamp-1 text-[8px] sm:text-[9px] text-slate-400 mt-0.5">
-                                People
-                            </span>
-
-                        </button>
-
-
-                        <!-- 6. Marketing -->
-                        <button type="button"
-                            onclick="selectWorkspace(this, 'marketing', 'Marketing', 'megaphone', 'border-cyan-500', 'bg-cyan-500/10', 'text-cyan-400')"
-                            class="ws-card group relative flex flex-col items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] p-1.5 sm:p-2.5 text-center transition-all duration-200 hover:border-cyan-500/50 hover:bg-white/[0.08]">
-
-                            <div class="mb-1 flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-400 transition-transform group-hover:scale-110">
-                                <i data-lucide="megaphone" class="h-3.5 w-3.5"></i>
-                            </div>
-
-                            <span class="text-[10px] sm:text-[11px] font-medium text-slate-200 group-hover:text-white leading-tight">
-                                Marketing
-                            </span>
-
-                            <span class="line-clamp-1 text-[8px] sm:text-[9px] text-slate-400 mt-0.5">
-                                Growth
-                            </span>
-
-                        </button>
+                        {{ session('status') }}
 
                     </div>
 
-                </div>
+                @endif
 
 
-                <!-- Panel Form Login -->
-                <div id="authFormContainer"
-                    class="hidden translate-y-3 opacity-0 transition-all duration-300 ease-out">
 
-                    <!-- Banner Workspace -->
-                    <div class="mt-3 flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.04] p-2 px-3 backdrop-blur">
+                {{-- =================================================
+                | VALIDATION ERRORS
+                ================================================== --}}
 
-                        <div class="flex items-center gap-2">
+                @if ($errors->any())
 
-                            <div id="bannerIconBg"
-                                class="flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-lg bg-blue-500/10 text-blue-400">
+                    <div
+                        class="mt-3
+                        rounded-xl
+                        border
+                        border-rose-400/20
+                        bg-rose-400/10
+                        px-3
+                        py-2
+                        text-xs
+                        text-rose-300
+                        sm:mt-4">
 
-                                <i id="bannerIcon"
+                        <p class="font-semibold">
+                            Login belum berhasil.
+                        </p>
+
+
+                        <ul
+                            class="mt-1
+                            list-disc
+                            space-y-0.5
+                            pl-4
+                            text-[11px]">
+
+                            @foreach ($errors->all() as $error)
+
+                                <li>
+                                    {{ $error }}
+                                </li>
+
+                            @endforeach
+
+                        </ul>
+
+                    </div>
+
+                @endif
+
+
+
+                {{-- =================================================
+                | WORKSPACE SELECTOR
+                ================================================== --}}
+
+                <div class="mt-3 sm:mt-4">
+
+                    <div
+                        class="grid
+                        grid-cols-3
+                        gap-1.5
+                        sm:gap-2">
+
+
+                        {{-- Circle --}}
+
+                        <button
+                            type="button"
+                            data-workspace="circle"
+                            onclick="selectWorkspace(
+                                this,
+                                'circle',
+                                'Circle',
+                                'layout-grid',
+                                'border-blue-500',
+                                'bg-blue-500/10',
+                                'text-blue-400'
+                            )"
+                            class="ws-card
+                            group
+                            relative
+                            flex
+                            flex-col
+                            items-center
+                            justify-center
+                            rounded-xl
+                            border
+                            border-white/10
+                            bg-white/[0.03]
+                            p-1.5
+                            text-center
+                            transition-all
+                            duration-200
+                            hover:border-blue-500/50
+                            hover:bg-white/[0.08]
+                            sm:p-2.5">
+
+                            <div
+                                class="mb-1
+                                flex
+                                h-6
+                                w-6
+                                items-center
+                                justify-center
+                                rounded-lg
+                                bg-blue-500/10
+                                text-blue-400
+                                transition-transform
+                                group-hover:scale-110
+                                sm:h-7
+                                sm:w-7">
+
+                                <i
                                     data-lucide="layout-grid"
                                     class="h-3.5 w-3.5">
                                 </i>
 
                             </div>
 
+
+                            <span
+                                class="text-[10px]
+                                font-medium
+                                leading-tight
+                                text-slate-200
+                                group-hover:text-white
+                                sm:text-[11px]">
+
+                                Circle
+
+                            </span>
+
+
+                            <span
+                                class="mt-0.5
+                                line-clamp-1
+                                text-[8px]
+                                text-slate-400
+                                sm:text-[9px]">
+
+                                Project & Ops
+
+                            </span>
+
+                        </button>
+
+
+
+                        {{-- Inventory --}}
+
+                        <button
+                            type="button"
+                            data-workspace="inventory"
+                            onclick="selectWorkspace(
+                                this,
+                                'inventory',
+                                'Inventory',
+                                'boxes',
+                                'border-amber-500',
+                                'bg-amber-500/10',
+                                'text-amber-400'
+                            )"
+                            class="ws-card
+                            group
+                            relative
+                            flex
+                            flex-col
+                            items-center
+                            justify-center
+                            rounded-xl
+                            border
+                            border-white/10
+                            bg-white/[0.03]
+                            p-1.5
+                            text-center
+                            transition-all
+                            duration-200
+                            hover:border-amber-500/50
+                            hover:bg-white/[0.08]
+                            sm:p-2.5">
+
+                            <div
+                                class="mb-1
+                                flex
+                                h-6
+                                w-6
+                                items-center
+                                justify-center
+                                rounded-lg
+                                bg-amber-500/10
+                                text-amber-400
+                                transition-transform
+                                group-hover:scale-110
+                                sm:h-7
+                                sm:w-7">
+
+                                <i
+                                    data-lucide="boxes"
+                                    class="h-3.5 w-3.5">
+                                </i>
+
+                            </div>
+
+
+                            <span
+                                class="text-[10px]
+                                font-medium
+                                leading-tight
+                                text-slate-200
+                                group-hover:text-white
+                                sm:text-[11px]">
+
+                                Inventory
+
+                            </span>
+
+
+                            <span
+                                class="mt-0.5
+                                line-clamp-1
+                                text-[8px]
+                                text-slate-400
+                                sm:text-[9px]">
+
+                                Warehouse
+
+                            </span>
+
+                        </button>
+
+
+
+                        {{-- Finance --}}
+
+                        <button
+                            type="button"
+                            data-workspace="finance"
+                            onclick="selectWorkspace(
+                                this,
+                                'finance',
+                                'Finance',
+                                'wallet',
+                                'border-emerald-500',
+                                'bg-emerald-500/10',
+                                'text-emerald-400'
+                            )"
+                            class="ws-card
+                            group
+                            relative
+                            flex
+                            flex-col
+                            items-center
+                            justify-center
+                            rounded-xl
+                            border
+                            border-white/10
+                            bg-white/[0.03]
+                            p-1.5
+                            text-center
+                            transition-all
+                            duration-200
+                            hover:border-emerald-500/50
+                            hover:bg-white/[0.08]
+                            sm:p-2.5">
+
+                            <div
+                                class="mb-1
+                                flex
+                                h-6
+                                w-6
+                                items-center
+                                justify-center
+                                rounded-lg
+                                bg-emerald-500/10
+                                text-emerald-400
+                                transition-transform
+                                group-hover:scale-110
+                                sm:h-7
+                                sm:w-7">
+
+                                <i
+                                    data-lucide="wallet"
+                                    class="h-3.5 w-3.5">
+                                </i>
+
+                            </div>
+
+
+                            <span
+                                class="text-[10px]
+                                font-medium
+                                leading-tight
+                                text-slate-200
+                                group-hover:text-white
+                                sm:text-[11px]">
+
+                                Finance
+
+                            </span>
+
+
+                            <span
+                                class="mt-0.5
+                                line-clamp-1
+                                text-[8px]
+                                text-slate-400
+                                sm:text-[9px]">
+
+                                Control
+
+                            </span>
+
+                        </button>
+
+
+
+                        {{-- Field Operations --}}
+
+                        <button
+                            type="button"
+                            data-workspace="field-ops"
+                            onclick="selectWorkspace(
+                                this,
+                                'field-ops',
+                                'Field Operations',
+                                'map-pin',
+                                'border-purple-500',
+                                'bg-purple-500/10',
+                                'text-purple-400'
+                            )"
+                            class="ws-card
+                            group
+                            relative
+                            flex
+                            flex-col
+                            items-center
+                            justify-center
+                            rounded-xl
+                            border
+                            border-white/10
+                            bg-white/[0.03]
+                            p-1.5
+                            text-center
+                            transition-all
+                            duration-200
+                            hover:border-purple-500/50
+                            hover:bg-white/[0.08]
+                            sm:p-2.5">
+
+                            <div
+                                class="mb-1
+                                flex
+                                h-6
+                                w-6
+                                items-center
+                                justify-center
+                                rounded-lg
+                                bg-purple-500/10
+                                text-purple-400
+                                transition-transform
+                                group-hover:scale-110
+                                sm:h-7
+                                sm:w-7">
+
+                                <i
+                                    data-lucide="map-pin"
+                                    class="h-3.5 w-3.5">
+                                </i>
+
+                            </div>
+
+
+                            <span
+                                class="text-[10px]
+                                font-medium
+                                leading-tight
+                                text-slate-200
+                                group-hover:text-white
+                                sm:text-[11px]">
+
+                                Field Ops
+
+                            </span>
+
+
+                            <span
+                                class="mt-0.5
+                                line-clamp-1
+                                text-[8px]
+                                text-slate-400
+                                sm:text-[9px]">
+
+                                Activity
+
+                            </span>
+
+                        </button>
+
+
+
+                        {{-- HR --}}
+
+                        <button
+                            type="button"
+                            data-workspace="hr"
+                            onclick="selectWorkspace(
+                                this,
+                                'hr',
+                                'Human Resources',
+                                'users',
+                                'border-rose-500',
+                                'bg-rose-500/10',
+                                'text-rose-400'
+                            )"
+                            class="ws-card
+                            group
+                            relative
+                            flex
+                            flex-col
+                            items-center
+                            justify-center
+                            rounded-xl
+                            border
+                            border-white/10
+                            bg-white/[0.03]
+                            p-1.5
+                            text-center
+                            transition-all
+                            duration-200
+                            hover:border-rose-500/50
+                            hover:bg-white/[0.08]
+                            sm:p-2.5">
+
+                            <div
+                                class="mb-1
+                                flex
+                                h-6
+                                w-6
+                                items-center
+                                justify-center
+                                rounded-lg
+                                bg-rose-500/10
+                                text-rose-400
+                                transition-transform
+                                group-hover:scale-110
+                                sm:h-7
+                                sm:w-7">
+
+                                <i
+                                    data-lucide="users"
+                                    class="h-3.5 w-3.5">
+                                </i>
+
+                            </div>
+
+
+                            <span
+                                class="text-[10px]
+                                font-medium
+                                leading-tight
+                                text-slate-200
+                                group-hover:text-white
+                                sm:text-[11px]">
+
+                                HR
+
+                            </span>
+
+
+                            <span
+                                class="mt-0.5
+                                line-clamp-1
+                                text-[8px]
+                                text-slate-400
+                                sm:text-[9px]">
+
+                                People
+
+                            </span>
+
+                        </button>
+
+
+
+                        {{-- Marketing --}}
+
+                        <button
+                            type="button"
+                            data-workspace="marketing"
+                            onclick="selectWorkspace(
+                                this,
+                                'marketing',
+                                'Marketing',
+                                'megaphone',
+                                'border-cyan-500',
+                                'bg-cyan-500/10',
+                                'text-cyan-400'
+                            )"
+                            class="ws-card
+                            group
+                            relative
+                            flex
+                            flex-col
+                            items-center
+                            justify-center
+                            rounded-xl
+                            border
+                            border-white/10
+                            bg-white/[0.03]
+                            p-1.5
+                            text-center
+                            transition-all
+                            duration-200
+                            hover:border-cyan-500/50
+                            hover:bg-white/[0.08]
+                            sm:p-2.5">
+
+                            <div
+                                class="mb-1
+                                flex
+                                h-6
+                                w-6
+                                items-center
+                                justify-center
+                                rounded-lg
+                                bg-cyan-500/10
+                                text-cyan-400
+                                transition-transform
+                                group-hover:scale-110
+                                sm:h-7
+                                sm:w-7">
+
+                                <i
+                                    data-lucide="megaphone"
+                                    class="h-3.5 w-3.5">
+                                </i>
+
+                            </div>
+
+
+                            <span
+                                class="text-[10px]
+                                font-medium
+                                leading-tight
+                                text-slate-200
+                                group-hover:text-white
+                                sm:text-[11px]">
+
+                                Marketing
+
+                            </span>
+
+
+                            <span
+                                class="mt-0.5
+                                line-clamp-1
+                                text-[8px]
+                                text-slate-400
+                                sm:text-[9px]">
+
+                                Growth
+
+                            </span>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                {{-- =================================================
+                | LOGIN FORM
+                ================================================== --}}
+
+                <div
+                    id="authFormContainer"
+                    class="hidden
+                    translate-y-3
+                    opacity-0
+                    transition-all
+                    duration-300
+                    ease-out">
+
+
+                    {{-- Selected Workspace Banner --}}
+
+                    <div
+                        class="mt-3
+                        flex
+                        items-center
+                        justify-between
+                        rounded-xl
+                        border
+                        border-white/10
+                        bg-white/[0.04]
+                        p-2
+                        px-3
+                        backdrop-blur">
+
+
+                        <div
+                            class="flex items-center gap-2">
+
+
+                            <div
+                                id="bannerIconBg"
+                                class="flex
+                                h-6
+                                w-6
+                                items-center
+                                justify-center
+                                rounded-lg
+                                bg-blue-500/10
+                                text-blue-400
+                                sm:h-7
+                                sm:w-7">
+
+                                <i
+                                    id="bannerIcon"
+                                    data-lucide="layout-grid"
+                                    class="h-3.5 w-3.5">
+                                </i>
+
+                            </div>
+
+
                             <div>
 
-                                <p class="text-[8px] font-semibold uppercase tracking-wider text-slate-400">
+                                <p
+                                    class="text-[8px]
+                                    font-semibold
+                                    uppercase
+                                    tracking-wider
+                                    text-slate-400">
+
                                     Workspace Terpilih
+
                                 </p>
 
-                                <h3 id="bannerTitle"
-                                    class="text-xs font-bold text-white">
+
+                                <h3
+                                    id="bannerTitle"
+                                    class="text-xs
+                                    font-bold
+                                    text-white">
+
                                     Circle
+
                                 </h3>
 
                             </div>
 
                         </div>
 
-                        <button type="button"
+
+                        <button
+                            type="button"
                             onclick="resetWorkspaceSelection()"
-                            class="rounded-md p-1 text-slate-400 transition hover:bg-white/10 hover:text-white"
+                            class="rounded-md
+                            p-1
+                            text-slate-400
+                            transition
+                            hover:bg-white/10
+                            hover:text-white"
                             title="Ganti workspace">
 
-                            <i data-lucide="x" class="h-3.5 w-3.5"></i>
+                            <i
+                                data-lucide="x"
+                                class="h-3.5 w-3.5">
+                            </i>
 
                         </button>
 
                     </div>
 
 
-                    <!-- Login Form -->
-                    <form method="POST"
+
+                    {{-- Login Form --}}
+
+                    <form
+                        method="POST"
                         action="{{ route('login.operator.post') }}"
                         class="mt-3 space-y-2.5 sm:space-y-3">
 
                         @csrf
 
-                        <input type="hidden"
-                            id="selectedDivisionInput"
-                            name="division"
-                            value="{{ old('division', 'circle') }}">
+
+                        {{-- Workspace --}}
+
+                        <input
+                            type="hidden"
+                            id="selectedWorkspaceInput"
+                            name="workspace"
+                            value="{{ old('workspace') }}">
 
 
-                        <!-- Email -->
+                        {{-- Email --}}
+
                         <div>
 
-                            <label for="email"
-                                class="mb-1 block text-[11px] sm:text-xs font-medium text-slate-200">
+                            <label
+                                for="email"
+                                class="mb-1 block text-[11px] font-medium text-slate-200 sm:text-xs">
+
                                 Email perusahaan
+
                             </label>
+
 
                             <div class="relative">
 
-                                <i data-lucide="mail"
-                                    class="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-500">
+                                <i
+                                    data-lucide="mail"
+                                    class="pointer-events-none
+                                    absolute
+                                    left-3
+                                    top-1/2
+                                    h-3.5
+                                    w-3.5
+                                    -translate-y-1/2
+                                    text-slate-500">
                                 </i>
 
-                                <input id="email"
+
+                                <input
+                                    id="email"
                                     name="email"
                                     type="email"
                                     value="{{ old('email') }}"
                                     required
                                     autocomplete="username"
                                     placeholder="nama@perusahaan.com"
-                                    class="auth-input w-full rounded-xl border border-white/10 bg-white/[0.055] py-2 sm:py-2.5 pl-9 pr-3 text-xs text-white outline-none transition placeholder:text-slate-600 focus:border-blue-400/60 focus:ring-2 focus:ring-blue-500/20">
+                                    class="auth-input
+                                    w-full
+                                    rounded-xl
+                                    border
+                                    border-white/10
+                                    bg-white/[0.055]
+                                    py-2
+                                    pl-9
+                                    pr-3
+                                    text-xs
+                                    text-white
+                                    outline-none
+                                    transition
+                                    placeholder:text-slate-600
+                                    focus:border-blue-400/60
+                                    focus:ring-2
+                                    focus:ring-blue-500/20
+                                    sm:py-2.5">
 
                             </div>
+
+
+                            @error('email')
+
+                                <p
+                                    class="mt-1 text-[10px] text-rose-400">
+
+                                    {{ $message }}
+
+                                </p>
+
+                            @enderror
 
                         </div>
 
 
-                        <!-- Password -->
+
+                        {{-- Password --}}
+
                         <div>
 
-                            <div class="mb-1 flex items-center justify-between gap-2">
+                            <label
+                                for="password"
+                                class="mb-1 block text-[11px] font-medium text-slate-200 sm:text-xs">
 
-                                <label for="password"
-                                    class="block text-[11px] sm:text-xs font-medium text-slate-200">
-                                    Kata sandi
-                                </label>
+                                Kata sandi
 
-                                @if (Route::has('password.request'))
-
-                                <a href="{{ route('password.request') }}"
-                                    class="text-[10px] sm:text-[11px] font-semibold text-sky-400 hover:text-sky-300">
-                                    Lupa?
-                                </a>
-
-                                @endif
-
-                            </div>
+                            </label>
 
 
                             <div class="relative">
 
-                                <i data-lucide="lock-keyhole"
-                                    class="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-500">
+                                <i
+                                    data-lucide="lock-keyhole"
+                                    class="pointer-events-none
+                                    absolute
+                                    left-3
+                                    top-1/2
+                                    h-3.5
+                                    w-3.5
+                                    -translate-y-1/2
+                                    text-slate-500">
                                 </i>
 
-                                <input id="password"
+
+                                <input
+                                    id="password"
                                     name="password"
                                     type="password"
                                     required
                                     autocomplete="current-password"
                                     placeholder="Masukkan kata sandi"
-                                    class="auth-input w-full rounded-xl border border-white/10 bg-white/[0.055] py-2 sm:py-2.5 pl-9 pr-9 text-xs text-white outline-none transition placeholder:text-slate-600 focus:border-blue-400/60 focus:ring-2 focus:ring-blue-500/20">
+                                    class="auth-input
+                                    w-full
+                                    rounded-xl
+                                    border
+                                    border-white/10
+                                    bg-white/[0.055]
+                                    py-2
+                                    pl-9
+                                    pr-9
+                                    text-xs
+                                    text-white
+                                    outline-none
+                                    transition
+                                    placeholder:text-slate-600
+                                    focus:border-blue-400/60
+                                    focus:ring-2
+                                    focus:ring-blue-500/20
+                                    sm:py-2.5">
 
 
-                                <button id="togglePassword"
+                                <button
+                                    id="togglePassword"
                                     type="button"
-                                    class="absolute right-2 top-1/2 inline-flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-lg text-slate-500 transition hover:bg-white/5 hover:text-slate-300"
+                                    class="absolute
+                                    right-2
+                                    top-1/2
+                                    inline-flex
+                                    h-7
+                                    w-7
+                                    -translate-y-1/2
+                                    items-center
+                                    justify-center
+                                    rounded-lg
+                                    text-slate-500
+                                    transition
+                                    hover:bg-white/5
+                                    hover:text-slate-300"
                                     aria-label="Tampilkan kata sandi">
 
-                                    <i data-lucide="eye"
+                                    <i
+                                        data-lucide="eye"
                                         class="h-3.5 w-3.5">
                                     </i>
 
@@ -526,17 +1460,42 @@
 
                             </div>
 
+
+                            @error('password')
+
+                                <p
+                                    class="mt-1 text-[10px] text-rose-400">
+
+                                    {{ $message }}
+
+                                </p>
+
+                            @enderror
+
                         </div>
 
 
-                        <!-- Remember Me -->
-                        <div class="flex items-center justify-between pt-0.5">
 
-                            <label class="flex cursor-pointer items-center gap-2 text-[11px] sm:text-xs text-slate-400">
+                        {{-- Remember Me --}}
 
-                                <input type="checkbox"
+                        <div
+                            class="flex items-center pt-0.5">
+
+                            <label
+                                class="flex
+                                cursor-pointer
+                                items-center
+                                gap-2
+                                text-[11px]
+                                text-slate-400
+                                sm:text-xs">
+
+                                <input
+                                    type="checkbox"
                                     name="remember"
-                                    class="h-3.5 w-3.5 rounded border-slate-600 bg-transparent text-blue-600 focus:ring-blue-500">
+                                    value="1"
+                                    class="h-3.5 w-3.5 rounded border-slate-600 bg-transparent text-blue-600 focus:ring-blue-500"
+                                    {{ old('remember') ? 'checked' : '' }}>
 
                                 Ingat saya
 
@@ -545,15 +1504,39 @@
                         </div>
 
 
-                        <!-- Submit -->
-                        <button type="submit"
-                            class="group flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2.5 text-xs font-semibold text-white shadow-lg shadow-blue-950/30 transition hover:from-blue-400 hover:to-blue-500">
+
+                        {{-- Submit --}}
+
+                        <button
+                            type="submit"
+                            class="group
+                            flex
+                            w-full
+                            items-center
+                            justify-center
+                            gap-2
+                            rounded-xl
+                            bg-gradient-to-r
+                            from-blue-500
+                            to-blue-600
+                            px-4
+                            py-2.5
+                            text-xs
+                            font-semibold
+                            text-white
+                            shadow-lg
+                            shadow-blue-950/30
+                            transition
+                            hover:from-blue-400
+                            hover:to-blue-500">
 
                             <span id="btnSubmitText">
-                                Masuk ke Circle
+                                Masuk
                             </span>
 
-                            <i data-lucide="arrow-right"
+
+                            <i
+                                data-lucide="arrow-right"
                                 class="h-3.5 w-3.5 transition-transform group-hover:translate-x-1">
                             </i>
 
@@ -564,24 +1547,64 @@
                 </div>
 
 
-                <!-- Register -->
-                <div class="my-3 sm:my-4 flex items-center gap-3">
 
-                    <span class="h-px flex-1 bg-white/10"></span>
+                {{-- =================================================
+                | REGISTER
+                ================================================== --}}
 
-                    <span class="text-[9px] sm:text-[10px] text-slate-500">
-                        Belum memiliki akun?
+                <div
+                    class="my-3
+                    flex
+                    items-center
+                    gap-3
+                    sm:my-4">
+
+                    <span
+                        class="h-px flex-1 bg-white/10">
                     </span>
 
-                    <span class="h-px flex-1 bg-white/10"></span>
+
+                    <span
+                        class="text-[9px]
+                        text-slate-500
+                        sm:text-[10px]">
+
+                        Belum memiliki akun?
+
+                    </span>
+
+
+                    <span
+                        class="h-px flex-1 bg-white/10">
+                    </span>
 
                 </div>
 
 
-                <a href="{{ url('/register') }}"
-                    class="flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 sm:py-2.5 text-xs font-semibold text-slate-200 transition hover:border-sky-400/30 hover:bg-white/10 hover:text-white">
+                <a
+                    href="{{ route('register') }}"
+                    class="flex
+                    w-full
+                    items-center
+                    justify-center
+                    gap-2
+                    rounded-xl
+                    border
+                    border-white/10
+                    bg-white/5
+                    px-4
+                    py-2
+                    text-xs
+                    font-semibold
+                    text-slate-200
+                    transition
+                    hover:border-sky-400/30
+                    hover:bg-white/10
+                    hover:text-white
+                    sm:py-2.5">
 
-                    <i data-lucide="user-plus"
+                    <i
+                        data-lucide="user-plus"
                         class="h-3.5 w-3.5 text-sky-400">
                     </i>
 
@@ -590,8 +1613,17 @@
                 </a>
 
 
-                <p class="mt-3 sm:mt-4 text-center text-[9px] sm:text-[10px] text-slate-500">
-                    Akses sistem dipantau dan dicatat untuk keamanan perusahaan.
+                <p
+                    class="mt-3
+                    text-center
+                    text-[9px]
+                    text-slate-500
+                    sm:mt-4
+                    sm:text-[10px]">
+
+                    Akses sistem dipantau dan dicatat
+                    untuk keamanan perusahaan.
+
                 </p>
 
             </section>
@@ -601,7 +1633,13 @@
     </main>
 
 
+
+    {{-- =========================================================
+    | JAVASCRIPT
+    ========================================================== --}}
+
     <script>
+
         /*
         |--------------------------------------------------------------------------
         | Workspace Selection
@@ -610,7 +1648,7 @@
 
         function selectWorkspace(
             card,
-            val,
+            value,
             title,
             iconName,
             borderClass,
@@ -618,28 +1656,43 @@
             textClass
         ) {
 
-            const cards = document.querySelectorAll('.ws-card');
+            const cards =
+                document.querySelectorAll('.ws-card');
 
             const authFormContainer =
-                document.getElementById('authFormContainer');
+                document.getElementById(
+                    'authFormContainer'
+                );
 
             const bannerTitle =
-                document.getElementById('bannerTitle');
+                document.getElementById(
+                    'bannerTitle'
+                );
 
             const bannerIcon =
-                document.getElementById('bannerIcon');
+                document.getElementById(
+                    'bannerIcon'
+                );
 
             const bannerIconBg =
-                document.getElementById('bannerIconBg');
+                document.getElementById(
+                    'bannerIconBg'
+                );
 
             const btnSubmitText =
-                document.getElementById('btnSubmitText');
+                document.getElementById(
+                    'btnSubmitText'
+                );
 
-            const selectedDivisionInput =
-                document.getElementById('selectedDivisionInput');
+            const selectedWorkspaceInput =
+                document.getElementById(
+                    'selectedWorkspaceInput'
+                );
 
             const emailInput =
-                document.getElementById('email');
+                document.getElementById(
+                    'email'
+                );
 
 
             /*
@@ -652,6 +1705,12 @@
 
                 cardItem.classList.remove(
                     'ring-2',
+                    'ring-blue-500',
+                    'ring-amber-500',
+                    'ring-emerald-500',
+                    'ring-purple-500',
+                    'ring-rose-500',
+                    'ring-cyan-500',
                     'scale-[1.02]',
                     'opacity-100'
                 );
@@ -666,7 +1725,7 @@
 
             /*
             |--------------------------------------------------------------------------
-            | Aktifkan card yang dipilih
+            | Aktifkan card
             |--------------------------------------------------------------------------
             */
 
@@ -685,67 +1744,105 @@
 
             /*
             |--------------------------------------------------------------------------
-            | Update banner
+            | Update hidden workspace
             |--------------------------------------------------------------------------
             */
 
-            bannerTitle.innerText = title;
+            if (selectedWorkspaceInput) {
 
-            bannerIcon.setAttribute(
-                'data-lucide',
-                iconName
-            );
+                selectedWorkspaceInput.value =
+                    value;
 
-
-            /*
-            |--------------------------------------------------------------------------
-            | Update warna banner
-            |--------------------------------------------------------------------------
-            */
-
-            bannerIconBg.className =
-                `flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-lg ${bgClass} ${textClass}`;
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Update tombol login
-            |--------------------------------------------------------------------------
-            */
-
-            btnSubmitText.innerText =
-                `Masuk ke ${title}`;
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Update division
-            |--------------------------------------------------------------------------
-            */
-
-            selectedDivisionInput.value = val;
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Refresh Lucide Icons
-            |--------------------------------------------------------------------------
-            */
-
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
             }
 
 
             /*
             |--------------------------------------------------------------------------
-            | Tampilkan Form Login
+            | Update banner
             |--------------------------------------------------------------------------
             */
 
-            if (authFormContainer.classList.contains('hidden')) {
+            if (bannerTitle) {
 
-                authFormContainer.classList.remove('hidden');
+                bannerTitle.innerText =
+                    title;
+
+            }
+
+
+            if (bannerIcon) {
+
+                bannerIcon.setAttribute(
+                    'data-lucide',
+                    iconName
+                );
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Update banner color
+            |--------------------------------------------------------------------------
+            */
+
+            if (bannerIconBg) {
+
+                bannerIconBg.className =
+                    `flex h-6 w-6 sm:h-7 sm:w-7
+                    items-center justify-center
+                    rounded-lg
+                    ${bgClass}
+                    ${textClass}`;
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Update button
+            |--------------------------------------------------------------------------
+            */
+
+            if (btnSubmitText) {
+
+                btnSubmitText.innerText =
+                    `Masuk ke ${title}`;
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Refresh icons
+            |--------------------------------------------------------------------------
+            */
+
+            if (
+                typeof lucide !== 'undefined'
+            ) {
+
+                lucide.createIcons();
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Show form
+            |--------------------------------------------------------------------------
+            */
+
+            if (
+                authFormContainer.classList.contains(
+                    'hidden'
+                )
+            ) {
+
+                authFormContainer.classList.remove(
+                    'hidden'
+                );
+
 
                 setTimeout(() => {
 
@@ -766,19 +1863,22 @@
 
             /*
             |--------------------------------------------------------------------------
-            | Fokus ke Email
+            | Focus email
             |--------------------------------------------------------------------------
             */
 
             setTimeout(() => {
 
                 if (emailInput) {
+
                     emailInput.focus();
+
                 }
 
             }, 100);
 
         }
+
 
 
         /*
@@ -790,11 +1890,26 @@
         function resetWorkspaceSelection() {
 
             const cards =
-                document.querySelectorAll('.ws-card');
+                document.querySelectorAll(
+                    '.ws-card'
+                );
 
             const authFormContainer =
-                document.getElementById('authFormContainer');
+                document.getElementById(
+                    'authFormContainer'
+                );
 
+            const selectedWorkspaceInput =
+                document.getElementById(
+                    'selectedWorkspaceInput'
+                );
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Reset cards
+            |--------------------------------------------------------------------------
+            */
 
             cards.forEach(card => {
 
@@ -818,6 +1933,26 @@
             });
 
 
+            /*
+            |--------------------------------------------------------------------------
+            | Reset hidden workspace
+            |--------------------------------------------------------------------------
+            */
+
+            if (selectedWorkspaceInput) {
+
+                selectedWorkspaceInput.value =
+                    '';
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Hide form
+            |--------------------------------------------------------------------------
+            */
+
             authFormContainer.classList.remove(
                 'opacity-100',
                 'translate-y-0'
@@ -840,186 +1975,263 @@
         }
 
 
+
         /*
         |--------------------------------------------------------------------------
         | DOM Loaded
         |--------------------------------------------------------------------------
         */
 
-        document.addEventListener('DOMContentLoaded', () => {
-
-            /*
-            |--------------------------------------------------------------------------
-            | Lucide
-            |--------------------------------------------------------------------------
-            */
-
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
+        document.addEventListener(
+            'DOMContentLoaded',
+            () => {
 
 
-            /*
-            |--------------------------------------------------------------------------
-            | Theme
-            |--------------------------------------------------------------------------
-            */
+                /*
+                |--------------------------------------------------------------------------
+                | Lucide
+                |--------------------------------------------------------------------------
+                */
 
-            const root =
-                document.documentElement;
+                if (
+                    typeof lucide !== 'undefined'
+                ) {
 
-            const themeToggle =
-                document.getElementById('themeToggle');
-
-            const password =
-                document.getElementById('password');
-
-            const togglePassword =
-                document.getElementById('togglePassword');
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Refresh Theme Button
-            |--------------------------------------------------------------------------
-            */
-
-            const refreshThemeButton = () => {
-
-                if (!themeToggle) {
-                    return;
-                }
-
-                const isLight =
-                    root.classList.contains('light');
-
-                themeToggle.innerHTML =
-                    isLight ?
-                    '<i data-lucide="moon" class="h-4 w-4"></i>' :
-                    '<i data-lucide="sun" class="h-4 w-4"></i>';
-
-                themeToggle.setAttribute(
-                    'aria-label',
-                    isLight ?
-                    'Aktifkan tema gelap' :
-                    'Aktifkan tema terang'
-                );
-
-                if (typeof lucide !== 'undefined') {
                     lucide.createIcons();
+
                 }
 
-            };
 
+                /*
+                |--------------------------------------------------------------------------
+                | Elements
+                |--------------------------------------------------------------------------
+                */
 
-            /*
-            |--------------------------------------------------------------------------
-            | Theme Toggle
-            |--------------------------------------------------------------------------
-            */
+                const root =
+                    document.documentElement;
 
-            if (themeToggle) {
-
-                themeToggle.addEventListener('click', () => {
-
-                    const useLight = !root.classList.contains('light');
-
-                    root.classList.toggle(
-                        'light',
-                        useLight
+                const themeToggle =
+                    document.getElementById(
+                        'themeToggle'
                     );
 
-                    root.classList.toggle(
-                        'dark',
-                        !useLight
+                const password =
+                    document.getElementById(
+                        'password'
                     );
 
-                    root.style.colorScheme =
-                        useLight ?
-                        'light' :
-                        'dark';
-
-                    localStorage.setItem(
-                        'circle-theme',
-                        useLight ?
-                        'light' :
-                        'dark'
+                const togglePassword =
+                    document.getElementById(
+                        'togglePassword'
                     );
 
-                    refreshThemeButton();
-
-                });
-
-            }
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Password Toggle
-            |--------------------------------------------------------------------------
-            */
-
-            if (togglePassword && password) {
-
-                togglePassword.addEventListener('click', () => {
-
-                    const show =
-                        password.type === 'password';
-
-                    password.type =
-                        show ?
-                        'text' :
-                        'password';
-
-                    togglePassword.innerHTML =
-                        show ?
-                        '<i data-lucide="eye-off" class="h-3.5 w-3.5"></i>' :
-                        '<i data-lucide="eye" class="h-3.5 w-3.5"></i>';
-
-                    togglePassword.setAttribute(
-                        'aria-label',
-                        show ?
-                        'Sembunyikan kata sandi' :
-                        'Tampilkan kata sandi'
+                const selectedWorkspaceInput =
+                    document.getElementById(
+                        'selectedWorkspaceInput'
                     );
 
-                    if (typeof lucide !== 'undefined') {
-                        lucide.createIcons();
+
+                /*
+                |--------------------------------------------------------------------------
+                | Theme Button
+                |--------------------------------------------------------------------------
+                */
+
+                const refreshThemeButton =
+                    () => {
+
+                        if (!themeToggle) {
+                            return;
+                        }
+
+
+                        const isLight =
+                            root.classList.contains(
+                                'light'
+                            );
+
+
+                        themeToggle.innerHTML =
+                            isLight
+
+                                ? '<i data-lucide="moon" class="h-4 w-4"></i>'
+
+                                : '<i data-lucide="sun" class="h-4 w-4"></i>';
+
+
+                        themeToggle.setAttribute(
+                            'aria-label',
+                            isLight
+                                ? 'Aktifkan tema gelap'
+                                : 'Aktifkan tema terang'
+                        );
+
+
+                        if (
+                            typeof lucide !==
+                            'undefined'
+                        ) {
+
+                            lucide.createIcons();
+
+                        }
+
+                    };
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Theme Toggle
+                |--------------------------------------------------------------------------
+                */
+
+                if (themeToggle) {
+
+                    themeToggle.addEventListener(
+                        'click',
+                        () => {
+
+                            const useLight =
+                                !root.classList.contains(
+                                    'light'
+                                );
+
+
+                            root.classList.toggle(
+                                'light',
+                                useLight
+                            );
+
+                            root.classList.toggle(
+                                'dark',
+                                !useLight
+                            );
+
+
+                            root.style.colorScheme =
+                                useLight
+                                    ? 'light'
+                                    : 'dark';
+
+
+                            localStorage.setItem(
+                                'circle-theme',
+                                useLight
+                                    ? 'light'
+                                    : 'dark'
+                            );
+
+
+                            refreshThemeButton();
+
+                        }
+                    );
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Password Toggle
+                |--------------------------------------------------------------------------
+                */
+
+                if (
+                    togglePassword &&
+                    password
+                ) {
+
+                    togglePassword.addEventListener(
+                        'click',
+                        () => {
+
+                            const show =
+                                password.type ===
+                                'password';
+
+
+                            password.type =
+                                show
+                                    ? 'text'
+                                    : 'password';
+
+
+                            togglePassword.innerHTML =
+                                show
+
+                                    ? '<i data-lucide="eye-off" class="h-3.5 w-3.5"></i>'
+
+                                    : '<i data-lucide="eye" class="h-3.5 w-3.5"></i>';
+
+
+                            togglePassword.setAttribute(
+                                'aria-label',
+                                show
+                                    ? 'Sembunyikan kata sandi'
+                                    : 'Tampilkan kata sandi'
+                            );
+
+
+                            if (
+                                typeof lucide !==
+                                'undefined'
+                            ) {
+
+                                lucide.createIcons();
+
+                            }
+
+                        }
+                    );
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Initialize Theme
+                |--------------------------------------------------------------------------
+                */
+
+                refreshThemeButton();
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Restore Workspace After Validation Error
+                |--------------------------------------------------------------------------
+                */
+
+                const hasErrors =
+                    @json($errors->any());
+
+                const oldWorkspace =
+                    @json(old('workspace'));
+
+
+                if (
+                    hasErrors &&
+                    oldWorkspace
+                ) {
+
+                    const oldCard =
+                        document.querySelector(
+                            `.ws-card[data-workspace="${oldWorkspace}"]`
+                        );
+
+
+                    if (oldCard) {
+
+                        oldCard.click();
+
                     }
 
-                });
-
-            }
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Initialize Theme
-            |--------------------------------------------------------------------------
-            */
-
-            refreshThemeButton();
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Auto Open Workspace When Login Failed
-            |--------------------------------------------------------------------------
-            */
-
-            const hasLoginErrors =
-                document.body.dataset.loginError === 'true';
-
-            if (hasLoginErrors) {
-                const firstCard =
-                    document.querySelector('.ws-card');
-
-                if (firstCard) {
-                    firstCard.click();
                 }
-            }
 
-        });
+            }
+        );
+
     </script>
 
 </body>

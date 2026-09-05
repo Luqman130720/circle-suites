@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,23 +31,59 @@
             mask-image: linear-gradient(to bottom, black 10%, transparent 95%);
         }
 
-        html.light body { background: #f4f7fc !important; color: #0f172a !important; }
+        html.light body {
+            background: #f4f7fc !important;
+            color: #0f172a !important;
+        }
+
         html.light #pageBackdrop {
             background: radial-gradient(circle at 15% 15%, rgba(37, 99, 235, .14), transparent 30%),
-                        radial-gradient(circle at 85% 20%, rgba(14, 165, 233, .10), transparent 28%),
-                        linear-gradient(180deg, #f8fbff 0%, #f3f7fc 100%) !important;
+                radial-gradient(circle at 85% 20%, rgba(14, 165, 233, .10), transparent 28%),
+                linear-gradient(180deg, #f8fbff 0%, #f3f7fc 100%) !important;
         }
-        html.light .auth-panel { background: rgba(255, 255, 255, .90) !important; border-color: rgba(148, 163, 184, .25) !important; }
-        html.light .text-white { color: #0f172a !important; }
-        html.light .text-slate-200 { color: #334155 !important; }
-        html.light .text-slate-300 { color: #475569 !important; }
-        html.light .text-slate-400, html.light .text-slate-500 { color: #64748b !important; }
-        html.light [class*="border-white/"] { border-color: rgba(148, 163, 184, .25) !important; }
-        html.light [class*="bg-white/"] { background-color: rgba(248, 250, 252, .88) !important; }
-        html.light .auth-input { background: #ffffff !important; color: #0f172a !important; border-color: #cbd5e1 !important; }
-        html.light .auth-input::placeholder { color: #94a3b8 !important; }
+
+        html.light .auth-panel {
+            background: rgba(255, 255, 255, .90) !important;
+            border-color: rgba(148, 163, 184, .25) !important;
+        }
+
+        html.light .text-white {
+            color: #0f172a !important;
+        }
+
+        html.light .text-slate-200 {
+            color: #334155 !important;
+        }
+
+        html.light .text-slate-300 {
+            color: #475569 !important;
+        }
+
+        html.light .text-slate-400,
+        html.light .text-slate-500 {
+            color: #64748b !important;
+        }
+
+        html.light [class*="border-white/"] {
+            border-color: rgba(148, 163, 184, .25) !important;
+        }
+
+        html.light [class*="bg-white/"] {
+            background-color: rgba(248, 250, 252, .88) !important;
+        }
+
+        html.light .auth-input {
+            background: #ffffff !important;
+            color: #0f172a !important;
+            border-color: #cbd5e1 !important;
+        }
+
+        html.light .auth-input::placeholder {
+            color: #94a3b8 !important;
+        }
     </style>
 </head>
+
 <body class="min-h-screen bg-[#07111f] font-sans text-slate-100 antialiased selection:bg-blue-500 selection:text-white">
     <div id="pageBackdrop" aria-hidden="true" class="pointer-events-none fixed inset-0 -z-20 bg-[radial-gradient(circle_at_15%_15%,_rgba(37,99,235,0.20),_transparent_30%),radial-gradient(circle_at_85%_20%,_rgba(14,165,233,0.12),_transparent_28%),linear-gradient(180deg,_#071426_0%,_#08111f_100%)]"></div>
     <div aria-hidden="true" class="auth-grid pointer-events-none fixed inset-0 -z-10"></div>
@@ -99,110 +136,442 @@
             </div>
 
             @if ($errors->any())
-                <div class="mt-6 rounded-2xl border border-rose-400/20 bg-rose-400/10 px-4 py-3 text-sm text-rose-300">
-                    <p class="font-semibold">Data pendaftaran perlu diperiksa.</p>
-                    <ul class="mt-2 list-disc space-y-1 pl-5">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+            <div class="mt-6 rounded-2xl border border-rose-400/20 bg-rose-400/10 px-4 py-3 text-sm text-rose-300">
+                <p class="font-semibold">Data pendaftaran perlu diperiksa.</p>
+                <ul class="mt-2 list-disc space-y-1 pl-5">
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
             @endif
 
-            <form method="POST" action="{{ route('login.register.post') }}" class="mt-7 space-y-5">
+            <form method="POST" action="{{ route('login.register.post') }}" enctype="multipart/form-data" class="mt-7 space-y-5">
                 @csrf
 
                 <div class="grid gap-5 sm:grid-cols-2">
                     <div>
-                        <label for="name" class="mb-2 block text-sm font-medium text-slate-200">Nama lengkap</label>
+                        <label for="name" class="mb-2 block text-sm font-medium text-slate-200">
+                            Nama lengkap
+                        </label>
+
                         <div class="relative">
-                            <i data-lucide="user" class="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500"></i>
-                            <input id="name" name="name" type="text" value="{{ old('name') }}" required autofocus autocomplete="name" placeholder="Nama lengkap" class="auth-input w-full rounded-2xl border border-white/10 bg-white/[0.055] py-3.5 pl-11 pr-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-blue-400/60 focus:ring-4 focus:ring-blue-500/10">
+                            <i data-lucide="user"
+                                class="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500"></i>
+
+                            <input
+                                id="name"
+                                name="name"
+                                type="text"
+                                value="{{ old('name') }}"
+                                required
+                                autofocus
+                                autocomplete="name"
+                                placeholder="Nama lengkap"
+                                class="auth-input w-full rounded-2xl border border-white/10 bg-white/[0.055] py-3.5 pl-11 pr-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-blue-400/60 focus:ring-4 focus:ring-blue-500/10">
                         </div>
+
+                        @error('name')
+                        <p class="mt-2 text-xs text-red-400">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div>
-                        <label for="employee_id" class="mb-2 block text-sm font-medium text-slate-200">ID karyawan <span class="text-xs text-slate-500">(opsional)</span></label>
+                        <label for="employee_id" class="mb-2 block text-sm font-medium text-slate-200">
+                            ID Karyawan
+                            <span class="text-xs text-slate-500">(opsional)</span>
+                        </label>
+
                         <div class="relative">
-                            <i data-lucide="badge" class="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500"></i>
-                            <input id="employee_id" name="employee_id" type="text" value="{{ old('employee_id') }}" placeholder="Contoh: EMP-001" class="auth-input w-full rounded-2xl border border-white/10 bg-white/[0.055] py-3.5 pl-11 pr-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-blue-400/60 focus:ring-4 focus:ring-blue-500/10">
+                            <i data-lucide="badge"
+                                class="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500"></i>
+
+                            <input
+                                id="employee_id"
+                                name="employee_id"
+                                type="text"
+                                value="{{ old('employee_id') }}"
+                                autocomplete="off"
+                                placeholder="Contoh: EMP-001"
+                                class="auth-input w-full rounded-2xl border border-white/10 bg-white/[0.055] py-3.5 pl-11 pr-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-blue-400/60 focus:ring-4 focus:ring-blue-500/10">
                         </div>
+
+                        @error('employee_id')
+                        <p class="mt-2 text-xs text-red-400">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 
                 <div>
-                    <label for="email" class="mb-2 block text-sm font-medium text-slate-200">Email perusahaan</label>
+                    <label for="email" class="mb-2 block text-sm font-medium text-slate-200">
+                        Email perusahaan
+                    </label>
+
                     <div class="relative">
-                        <i data-lucide="mail" class="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500"></i>
-                        <input id="email" name="email" type="email" value="{{ old('email') }}" required autocomplete="username" placeholder="nama@perusahaan.com" class="auth-input w-full rounded-2xl border border-white/10 bg-white/[0.055] py-3.5 pl-11 pr-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-blue-400/60 focus:ring-4 focus:ring-blue-500/10">
+                        <i data-lucide="mail"
+                            class="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500"></i>
+
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            value="{{ old('email') }}"
+                            required
+                            autocomplete="email"
+                            placeholder="nama@perusahaan.com"
+                            class="auth-input w-full rounded-2xl border border-white/10 bg-white/[0.055] py-3.5 pl-11 pr-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-blue-400/60 focus:ring-4 focus:ring-blue-500/10">
                     </div>
+
+                    @error('email')
+                    <p class="mt-2 text-xs text-red-400">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label for="profile_photo" class="mb-2 block text-sm font-medium text-slate-200">
+                        Foto profil
+                        <span class="text-xs text-slate-500">(opsional)</span>
+                    </label>
+
+                    <div class="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.035] p-4">
+                        <div
+                            id="profile-photo-preview"
+                            class="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.055]">
+                            <i data-lucide="user-round" class="h-7 w-7 text-slate-500"></i>
+                        </div>
+
+                        <div class="min-w-0 flex-1">
+                            <label
+                                for="profile_photo"
+                                class="inline-flex cursor-pointer items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-medium text-slate-300 transition hover:bg-white/10 hover:text-white">
+                                <i data-lucide="upload" class="h-4 w-4"></i>
+                                Pilih foto
+                            </label>
+
+                            <input
+                                id="profile_photo"
+                                name="profile_photo"
+                                type="file"
+                                accept="image/jpeg,image/png,image/webp"
+                                class="hidden">
+
+                            <p class="mt-2 text-xs text-slate-500">
+                                JPG, PNG atau WebP. Maksimal 2 MB.
+                            </p>
+                        </div>
+                    </div>
+
+                    @error('profile_photo')
+                    <p class="mt-2 text-xs text-red-400">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="grid gap-5 sm:grid-cols-2">
                     <div>
-                        <label for="division" class="mb-2 block text-sm font-medium text-slate-200">Divisi</label>
+                        <label for="division" class="mb-2 block text-sm font-medium text-slate-200">
+                            Workspace / Divisi
+                        </label>
+
                         <div class="relative">
-                            <i data-lucide="building-2" class="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500"></i>
-                            <select id="division" name="division" required class="auth-input w-full appearance-none rounded-2xl border border-white/10 bg-white/[0.055] py-3.5 pl-11 pr-11 text-sm text-white outline-none transition focus:border-blue-400/60 focus:ring-4 focus:ring-blue-500/10">
-                                <option value="" disabled {{ old('division') ? '' : 'selected' }}>Pilih divisi</option>
-                                @foreach ([
-                                    'Management',
-                                    'Operational',
-                                    'Technical',
-                                    'Finance & Accounting',
-                                    'Warehouse & Inventory',
-                                    'Human Resources',
-                                    'Sales & Marketing',
-                                    'Procurement',
-                                    'IT & Development',
-                                    'Installer / Technician',
-                                ] as $division)
-                                    <option value="{{ $division }}" @selected(old('division') === $division)>{{ $division }}</option>
-                                @endforeach
+                            <i data-lucide="building-2"
+                                class="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500"></i>
+
+                            <select
+                                id="division"
+                                name="division"
+                                required
+                                class="auth-input w-full appearance-none rounded-2xl border border-white/10 bg-white/[0.055] py-3.5 pl-11 pr-11 text-sm text-white outline-none transition focus:border-blue-400/60 focus:ring-4 focus:ring-blue-500/10">
+                                <option value="" disabled {{ old('division') ? '' : 'selected' }}>
+                                    Pilih workspace
+                                </option>
+
+                                <option value="Installer / Technician"
+                                    @selected(old('division')==='Installer / Technician' )>
+                                    Installer / Technician
+                                </option>
+
+                                <option value="Warehouse & Inventory"
+                                    @selected(old('division')==='Warehouse & Inventory' )>
+                                    Warehouse & Inventory
+                                </option>
+
+                                <option value="Sales & Marketing"
+                                    @selected(old('division')==='Sales & Marketing' )>
+                                    Sales & Marketing
+                                </option>
                             </select>
-                            <i data-lucide="chevron-down" class="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500"></i>
+
+                            <i data-lucide="chevron-down"
+                                class="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500"></i>
                         </div>
+
+                        <p class="mt-2 text-xs text-slate-500">
+                            Pilih workspace yang sesuai dengan bagian kerja kamu.
+                        </p>
+
+                        @error('division')
+                        <p class="mt-2 text-xs text-red-400">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div>
-                        <label for="position" class="mb-2 block text-sm font-medium text-slate-200">Jabatan</label>
+                        <label for="position" class="mb-2 block text-sm font-medium text-slate-200">
+                            Jabatan
+                        </label>
+
                         <div class="relative">
-                            <i data-lucide="briefcase-business" class="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500"></i>
-                            <input id="position" name="position" type="text" value="{{ old('position') }}" required placeholder="Contoh: Supervisor" class="auth-input w-full rounded-2xl border border-white/10 bg-white/[0.055] py-3.5 pl-11 pr-4 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-blue-400/60 focus:ring-4 focus:ring-blue-500/10">
+                            <i data-lucide="briefcase-business"
+                                class="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500"></i>
+
+                            <select
+                                id="position"
+                                name="position"
+                                required
+                                disabled
+                                class="auth-input w-full appearance-none rounded-2xl border border-white/10 bg-white/[0.055] py-3.5 pl-11 pr-11 text-sm text-white outline-none transition disabled:cursor-not-allowed disabled:opacity-50 focus:border-blue-400/60 focus:ring-4 focus:ring-blue-500/10">
+                                <option value="" selected>
+                                    Pilih workspace terlebih dahulu
+                                </option>
+                            </select>
+
+                            <i data-lucide="chevron-down"
+                                class="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500"></i>
                         </div>
+
+                        <p class="mt-2 text-xs text-slate-500">
+                            Jabatan akan menyesuaikan workspace yang dipilih.
+                        </p>
+
+                        @error('position')
+                        <p class="mt-2 text-xs text-red-400">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 
                 <div class="grid gap-5 sm:grid-cols-2">
                     <div>
-                        <label for="password" class="mb-2 block text-sm font-medium text-slate-200">Kata sandi</label>
+                        <label for="password" class="mb-2 block text-sm font-medium text-slate-200">
+                            Kata sandi
+                        </label>
+
                         <div class="relative">
-                            <i data-lucide="lock-keyhole" class="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500"></i>
-                            <input id="password" name="password" type="password" required autocomplete="new-password" minlength="8" placeholder="Minimal 8 karakter" class="auth-input w-full rounded-2xl border border-white/10 bg-white/[0.055] py-3.5 pl-11 pr-12 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-blue-400/60 focus:ring-4 focus:ring-blue-500/10">
-                            <button type="button" data-password-toggle="password" class="absolute right-3 top-1/2 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-xl text-slate-500 transition hover:bg-white/5 hover:text-slate-300" aria-label="Tampilkan kata sandi"><i data-lucide="eye" class="h-4 w-4"></i></button>
+                            <i data-lucide="lock-keyhole"
+                                class="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500"></i>
+
+                            <input
+                                id="password"
+                                name="password"
+                                type="password"
+                                required
+                                autocomplete="new-password"
+                                minlength="8"
+                                placeholder="Minimal 8 karakter"
+                                class="auth-input w-full rounded-2xl border border-white/10 bg-white/[0.055] py-3.5 pl-11 pr-12 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-blue-400/60 focus:ring-4 focus:ring-blue-500/10">
+
+                            <button
+                                type="button"
+                                data-password-toggle="password"
+                                class="absolute right-3 top-1/2 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-xl text-slate-500 transition hover:bg-white/5 hover:text-slate-300"
+                                aria-label="Tampilkan kata sandi">
+                                <i data-lucide="eye" class="h-4 w-4"></i>
+                            </button>
                         </div>
+
+                        @error('password')
+                        <p class="mt-2 text-xs text-red-400">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div>
-                        <label for="password_confirmation" class="mb-2 block text-sm font-medium text-slate-200">Konfirmasi kata sandi</label>
+                        <label for="password_confirmation" class="mb-2 block text-sm font-medium text-slate-200">
+                            Konfirmasi kata sandi
+                        </label>
+
                         <div class="relative">
-                            <i data-lucide="shield-check" class="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500"></i>
-                            <input id="password_confirmation" name="password_confirmation" type="password" required autocomplete="new-password" minlength="8" placeholder="Ulangi kata sandi" class="auth-input w-full rounded-2xl border border-white/10 bg-white/[0.055] py-3.5 pl-11 pr-12 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-blue-400/60 focus:ring-4 focus:ring-blue-500/10">
-                            <button type="button" data-password-toggle="password_confirmation" class="absolute right-3 top-1/2 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-xl text-slate-500 transition hover:bg-white/5 hover:text-slate-300" aria-label="Tampilkan konfirmasi kata sandi"><i data-lucide="eye" class="h-4 w-4"></i></button>
+                            <i data-lucide="shield-check"
+                                class="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500"></i>
+
+                            <input
+                                id="password_confirmation"
+                                name="password_confirmation"
+                                type="password"
+                                required
+                                autocomplete="new-password"
+                                minlength="8"
+                                placeholder="Ulangi kata sandi"
+                                class="auth-input w-full rounded-2xl border border-white/10 bg-white/[0.055] py-3.5 pl-11 pr-12 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-blue-400/60 focus:ring-4 focus:ring-blue-500/10">
+
+                            <button
+                                type="button"
+                                data-password-toggle="password_confirmation"
+                                class="absolute right-3 top-1/2 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-xl text-slate-500 transition hover:bg-white/5 hover:text-slate-300"
+                                aria-label="Tampilkan konfirmasi kata sandi">
+                                <i data-lucide="eye" class="h-4 w-4"></i>
+                            </button>
                         </div>
+
+                        @error('password_confirmation')
+                        <p class="mt-2 text-xs text-red-400">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="flex gap-3 rounded-2xl border border-blue-400/10 bg-blue-500/[0.06] p-4">
+                    <div class="mt-0.5 shrink-0">
+                        <i data-lucide="info" class="h-4 w-4 text-blue-400"></i>
+                    </div>
+
+                    <div>
+                        <p class="text-sm font-medium text-slate-200">
+                            Verifikasi akun
+                        </p>
+
+                        <p class="mt-1 text-xs leading-5 text-slate-500">
+                            Setelah pendaftaran dikirim, akun akan menunggu verifikasi
+                            administrator. Role dan hak akses akan ditentukan oleh
+                            administrator setelah data diperiksa.
+                        </p>
                     </div>
                 </div>
 
                 <label class="flex cursor-pointer items-start gap-3 text-sm leading-6 text-slate-400">
-                    <input type="checkbox" name="terms" required class="mt-1 h-4 w-4 rounded border-slate-600 bg-transparent text-blue-600 focus:ring-blue-500">
-                    <span>Saya menyatakan data yang diisi benar dan memahami bahwa akun baru harus diverifikasi oleh administrator.</span>
+                    <input
+                        type="checkbox"
+                        name="terms"
+                        value="1"
+                        required
+                        class="mt-1 h-4 w-4 rounded border-slate-600 bg-transparent text-blue-600 focus:ring-blue-500">
+
+                    <span>
+                        Saya menyatakan bahwa data yang saya isi benar dan memahami
+                        bahwa akun baru harus diverifikasi oleh administrator.
+                    </span>
                 </label>
 
-                <button type="submit" class="group flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-3.5 text-sm font-semibold text-white shadow-xl shadow-blue-950/30 transition hover:-translate-y-0.5 hover:from-blue-400 hover:to-blue-500">
+                @error('terms')
+                <p class="-mt-3 text-xs text-red-400">{{ $message }}</p>
+                @enderror
+
+                <button
+                    type="submit"
+                    class="group flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-3.5 text-sm font-semibold text-white shadow-xl shadow-blue-950/30 transition hover:-translate-y-0.5 hover:from-blue-400 hover:to-blue-500">
                     Kirim Pendaftaran
-                    <i data-lucide="send" class="h-4 w-4 transition-transform group-hover:translate-x-1"></i>
+
+                    <i data-lucide="send"
+                        class="h-4 w-4 transition-transform group-hover:translate-x-1"></i>
                 </button>
             </form>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const divisionSelect = document.getElementById('division');
+                    const positionSelect = document.getElementById('position');
+                    const photoInput = document.getElementById('profile_photo');
+                    const photoPreview = document.getElementById('profile-photo-preview');
+
+                    const positionsByDivision = {
+                        'Installer / Technician': [
+                            'SPV Operasional',
+                            'Technical',
+                            'Installer'
+                        ],
+
+                        'Warehouse & Inventory': [
+                            'Admin',
+                            'Staff',
+                            'Helper'
+                        ],
+
+                        'Sales & Marketing': [
+                            'Marketing Project',
+                            'Marketing Eksekutif'
+                        ]
+                    };
+
+                    const oldPosition = @json(old('position'));
+
+                    function updatePositions() {
+                        const division = divisionSelect.value;
+                        const positions = positionsByDivision[division] || [];
+
+                        positionSelect.innerHTML = '';
+
+                        if (positions.length === 0) {
+                            const option = new Option(
+                                'Pilih workspace terlebih dahulu',
+                                ''
+                            );
+
+                            option.disabled = true;
+                            option.selected = true;
+
+                            positionSelect.appendChild(option);
+                            positionSelect.disabled = true;
+
+                            return;
+                        }
+
+                        const placeholder = new Option(
+                            'Pilih jabatan',
+                            ''
+                        );
+
+                        placeholder.disabled = true;
+                        placeholder.selected = true;
+
+                        positionSelect.appendChild(placeholder);
+
+                        positions.forEach(function(position) {
+                            const option = new Option(
+                                position,
+                                position
+                            );
+
+                            if (oldPosition === position) {
+                                option.selected = true;
+                            }
+
+                            positionSelect.appendChild(option);
+                        });
+
+                        positionSelect.disabled = false;
+                    }
+
+                    divisionSelect.addEventListener('change', function() {
+                        updatePositions();
+                    });
+
+                    if (divisionSelect.value) {
+                        updatePositions();
+                    }
+
+                    photoInput?.addEventListener('change', function() {
+                        const file = this.files[0];
+
+                        if (!file) {
+                            return;
+                        }
+
+                        if (!file.type.startsWith('image/')) {
+                            this.value = '';
+                            return;
+                        }
+
+                        const reader = new FileReader();
+
+                        reader.onload = function(event) {
+                            photoPreview.innerHTML = `
+                    <img
+                        src="${event.target.result}"
+                        alt="Preview foto profil"
+                        class="h-full w-full object-cover"
+                    >
+                `;
+                        };
+
+                        reader.readAsDataURL(file);
+                    });
+                });
+            </script>
 
             <div class="my-7 flex items-center gap-4">
                 <span class="h-px flex-1 bg-white/10"></span>
@@ -255,4 +624,5 @@
         });
     </script>
 </body>
+
 </html>

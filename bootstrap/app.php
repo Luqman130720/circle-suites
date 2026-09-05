@@ -12,10 +12,23 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+
+        /*
+        |--------------------------------------------------------------------------
+        | Middleware Aliases
+        |--------------------------------------------------------------------------
+        */
+
+        $middleware->alias([
+            'role' => \App\Http\Middleware\RoleMiddleware::class,
+
+            'workspace' => \App\Http\Middleware\WorkspaceMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*'),
         );
-    })->create();
+    })
+    ->create();
