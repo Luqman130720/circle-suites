@@ -4,8 +4,6 @@
 |--------------------------------------------------------------------------
 | DARK MODE
 |--------------------------------------------------------------------------
-| Tailwind dark: akan mengikuti class .dark pada <html>
-|--------------------------------------------------------------------------
 */
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -28,11 +26,19 @@
 :root {
     --circle-primary: #2563eb;
     --circle-primary-dark: #1d4ed8;
+
+    --circle-primary-50: #eff6ff;
+    --circle-primary-100: #dbeafe;
+    --circle-primary-500: #3b82f6;
+
+    --circle-success: #16a34a;
+    --circle-warning: #f59e0b;
+    --circle-danger: #dc2626;
 }
 
 /*
 |--------------------------------------------------------------------------
-| THEME
+| TAILWIND THEME
 |--------------------------------------------------------------------------
 */
 
@@ -42,11 +48,15 @@
     --color-primary: var(--circle-primary);
     --color-primary-dark: var(--circle-primary-dark);
 
+    --color-primary-50: var(--circle-primary-50);
+    --color-primary-100: var(--circle-primary-100);
+    --color-primary-500: var(--circle-primary-500);
+
     --color-secondary: #0f172a;
 
-    --color-success: #16a34a;
-    --color-warning: #f59e0b;
-    --color-danger: #dc2626;
+    --color-success: var(--circle-success);
+    --color-warning: var(--circle-warning);
+    --color-danger: var(--circle-danger);
 }
 
 /*
@@ -58,36 +68,64 @@
 html[data-accent="blue"] {
     --circle-primary: #2563eb;
     --circle-primary-dark: #1d4ed8;
+
+    --circle-primary-50: #eff6ff;
+    --circle-primary-100: #dbeafe;
+    --circle-primary-500: #3b82f6;
 }
 
 html[data-accent="indigo"] {
     --circle-primary: #4f46e5;
     --circle-primary-dark: #4338ca;
+
+    --circle-primary-50: #eef2ff;
+    --circle-primary-100: #e0e7ff;
+    --circle-primary-500: #6366f1;
 }
 
 html[data-accent="violet"] {
     --circle-primary: #7c3aed;
     --circle-primary-dark: #6d28d9;
+
+    --circle-primary-50: #f5f3ff;
+    --circle-primary-100: #ede9fe;
+    --circle-primary-500: #8b5cf6;
 }
 
 html[data-accent="emerald"] {
     --circle-primary: #059669;
     --circle-primary-dark: #047857;
+
+    --circle-primary-50: #ecfdf5;
+    --circle-primary-100: #d1fae5;
+    --circle-primary-500: #10b981;
 }
 
 html[data-accent="cyan"] {
     --circle-primary: #0891b2;
     --circle-primary-dark: #0e7490;
+
+    --circle-primary-50: #ecfeff;
+    --circle-primary-100: #cffafe;
+    --circle-primary-500: #06b6d4;
 }
 
 html[data-accent="rose"] {
     --circle-primary: #e11d48;
     --circle-primary-dark: #be123c;
+
+    --circle-primary-50: #fff1f2;
+    --circle-primary-100: #ffe4e6;
+    --circle-primary-500: #f43f5e;
 }
 
 html[data-accent="amber"] {
     --circle-primary: #d97706;
     --circle-primary-dark: #b45309;
+
+    --circle-primary-50: #fffbeb;
+    --circle-primary-100: #fef3c7;
+    --circle-primary-500: #f59e0b;
 }
 
 /*

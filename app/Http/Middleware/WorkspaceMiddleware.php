@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class WorkspaceMiddleware
@@ -13,7 +14,13 @@ class WorkspaceMiddleware
         Closure $next,
         string $workspace
     ): Response {
-        if (! auth()->check()) {
+        /*
+        |--------------------------------------------------------------------------
+        | Authentication
+        |--------------------------------------------------------------------------
+        */
+
+        if (! Auth::check()) {
             return redirect()
                 ->route('login')
                 ->withErrors([
@@ -21,10 +28,25 @@ class WorkspaceMiddleware
                 ]);
         }
 
-        $user = auth()->user();
+        $user = Auth::user();
 
-        if ($user->status !== 'approved') {
-            auth()->logout();
+        /*
+        |--------------------------------------------------------------------------
+        | Account Status
+        |--------------------------------------------------------------------------
+        |
+        | Status "active" dan "approved" dianggap dapat
+        | mengakses workspace.
+        |
+        */
+
+        $allowedStatuses = [
+            'active',
+            'approved',
+        ];
+
+        if (! in_array($user->status, $allowedStatuses, true)) {
+            Auth::logout();
 
             $request->session()->invalidate();
             $request->session()->regenerateToken();
@@ -32,11 +54,29 @@ class WorkspaceMiddleware
             return redirect()
                 ->route('login')
                 ->withErrors([
-                    'email' => 'Akun Anda belum dapat mengakses sistem.',
+                    'email' => match ($user->status) {
+                        'pending' =>
+                        'Akun Anda masih menunggu persetujuan administrator.',
+
+                        'rejected' =>
+                        'Akun Anda ditolak oleh administrator.',
+
+                        'inactive' =>
+                        'Akun Anda sedang tidak aktif.',
+
+                        default =>
+                        'Akun Anda belum dapat mengakses sistem.',
+                    },
                 ]);
         }
 
-        $selectedWorkspace = session('workspace');
+        /*
+        |--------------------------------------------------------------------------
+        | Selected Workspace
+        |--------------------------------------------------------------------------
+        */
+
+        $selectedWorkspace = $request->session()->get('workspace');
 
         if (! $selectedWorkspace) {
             return redirect()
@@ -46,9 +86,24 @@ class WorkspaceMiddleware
                 ]);
         }
 
+        /*
+        |--------------------------------------------------------------------------
+        | Workspace Authorization
+        |--------------------------------------------------------------------------
+        */
+
         if ($selectedWorkspace !== $workspace) {
-            abort(403, 'Anda tidak memiliki izin untuk mengakses workspace ini.');
+            abort(
+                403,
+                'Anda tidak memiliki izin untuk mengakses workspace ini.'
+            );
         }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Continue
+        |--------------------------------------------------------------------------
+        */
 
         return $next($request);
     }

@@ -1,0 +1,16 @@
+[90m= [39m[34;4mApp\Models\User[39;24m {#8168
+    [34mid[39m: [35m4[39m,
+    [34mname[39m: [32m"[39m[32mtest[39m[32m"[39m,
+    [34memployee_id[39m: [32m"[39m[32mEmp - 1001[39m[32m"[39m,
+    [34mprofile_photo[39m: [32m"[39m[32mprofile-photos/KJzpNQTrEbpczWVGPEmLop4r3xoHJ804WWTIGKWb.jpg[39m[32m"[39m,
+    [34memail[39m: [32m"[39m[32mtesting@gmail.com[39m[32m"[39m,
+    [34memail_verified_at[39m: [36mnull[39m,
+    #[33mpassword[39m: [32m"[39m\$[32m2y[39m\$[32m12[39m\$[32me6RSoOE0JNZ1WSHXMIyOGeGCt6cpgWuBcee7XiCraymPJIkAkpGQa[39m[32m"[39m,
+    #[33mremember_token[39m: [36mnull[39m,
+    [34mdivision[39m: [32m"[39m[32mInstaller / Technician[39m[32m"[39m,
+    [34mposition[39m: [32m"[39m[32mInstaller[39m[32m"[39m,
+    [34mrole[39m: [32m"[39m[32minstaller[39m[32m"[39m,
+    [34mstatus[39m: [32m"[39m[32mactive[39m[32m"[39m,
+    [34mcreated_at[39m: [32m"[39m[32m2026-09-17 12:59:58[39m[32m"[39m,
+    [34mupdated_at[39m: [32m"[39m[32m2026-09-17 13:01:45[39m[32m"[39m,
+  }

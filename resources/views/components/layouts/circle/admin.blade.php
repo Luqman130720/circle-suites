@@ -1,8 +1,9 @@
+```blade
 <!DOCTYPE html>
 <html
   lang="{{ str_replace('_', '-', app()->getLocale()) }}"
-  data-theme="{{ session('theme', 'system') }}"
-  data-accent="{{ session('accent_color', 'blue') }}">
+  data-theme="system"
+  data-accent="blue">
 
 <head>
 
@@ -21,96 +22,6 @@
   </title>
 
   {{-- =====================================================
-         PREVENT THEME FLASH
-    ====================================================== --}}
-
-  <script>
-    (function() {
-
-      const theme =
-        @json(session('theme', 'system'));
-
-      const accent =
-        @json(session('accent_color', 'blue'));
-
-      const root =
-        document.documentElement;
-
-
-      /*
-      |--------------------------------------------------------------------------
-      | ACCENT
-      |--------------------------------------------------------------------------
-      */
-
-      root.dataset.accent = accent;
-
-
-      /*
-      |--------------------------------------------------------------------------
-      | THEME
-      |--------------------------------------------------------------------------
-      */
-
-      function applyTheme() {
-
-        let dark = false;
-
-        if (theme === 'dark') {
-
-          dark = true;
-
-        } else if (theme === 'light') {
-
-          dark = false;
-
-        } else {
-
-          dark =
-            window.matchMedia(
-              '(prefers-color-scheme: dark)'
-            ).matches;
-
-        }
-
-        root.classList.toggle('dark', dark);
-
-        root.style.colorScheme =
-          dark ? 'dark' : 'light';
-
-      }
-
-
-      applyTheme();
-
-
-      /*
-      |--------------------------------------------------------------------------
-      | SYSTEM THEME
-      |--------------------------------------------------------------------------
-      */
-
-      const media =
-        window.matchMedia(
-          '(prefers-color-scheme: dark)'
-        );
-
-      media.addEventListener(
-        'change',
-        function() {
-
-          if (theme === 'system') {
-            applyTheme();
-          }
-
-        }
-      );
-
-    })();
-  </script>
-
-
-  {{-- =====================================================
          VITE
     ====================================================== --}}
 
@@ -118,7 +29,6 @@
   'resources/css/app.css',
   'resources/js/app.js'
   ])
-
 
   {{-- =====================================================
          LUCIDE
@@ -139,7 +49,6 @@
         dark:text-slate-100
     ">
 
-
   {{-- =====================================================
          ADMIN SIDEBAR
     ====================================================== --}}
@@ -152,7 +61,6 @@
     ====================================================== --}}
 
   <div class="min-h-screen lg:pl-[280px]">
-
 
     {{-- =================================================
              ADMIN TOPBAR
@@ -259,12 +167,10 @@
         openSidebar
       );
 
-
       closeButton?.addEventListener(
         'click',
         closeSidebar
       );
-
 
       overlay?.addEventListener(
         'click',
@@ -313,3 +219,4 @@
 </body>
 
 </html>
+```
