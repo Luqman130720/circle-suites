@@ -6,6 +6,8 @@ $pendingUsers = \App\Models\User::where('status', 'pending')->count();
 $isDashboard = request()->routeIs('circle.dashboard');
 $isUsers = request()->routeIs('circle.user.management');
 $isApproval = request()->routeIs('circle.user.approval');
+$isPositions = request()->routeIs('circle.positions.*');
+$isRoles = request()->routeIs('circle.roles.*');
 @endphp
 
 <aside
@@ -555,6 +557,94 @@ $isApproval = request()->routeIs('circle.user.approval');
 
           {{ $pendingUsers > 99 ? '99+' : $pendingUsers }}
 
+        </span>
+
+        @endif
+
+      </a>
+
+
+      {{-- Master Jabatan --}}
+
+      <a
+        href="{{ route('circle.positions.index') }}"
+        class="group flex items-center gap-3 rounded-xl
+                       px-3 py-2.5 text-sm font-medium transition
+                       {{ $isPositions
+                            ? 'bg-primary text-white shadow-md shadow-primary/20'
+                            : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-white' }}">
+
+        <span
+          class="flex h-8 w-8 shrink-0 items-center
+                           justify-center rounded-lg
+                           {{ $isPositions
+                                ? 'bg-white/15'
+                                : 'bg-slate-100 group-hover:bg-slate-200 dark:bg-slate-800 dark:group-hover:bg-slate-700' }}">
+
+          <i
+            data-lucide="briefcase-business"
+            class="h-[17px] w-[17px]">
+          </i>
+
+        </span>
+
+
+        <span class="flex-1">
+
+          Master Jabatan
+
+        </span>
+
+
+        @if($isPositions)
+
+        <span
+          class="h-1.5 w-1.5 rounded-full
+                               bg-white">
+        </span>
+
+        @endif
+
+      </a>
+
+
+      {{-- Master Role --}}
+
+      <a
+        href="{{ route('circle.roles.index') }}"
+        class="group flex items-center gap-3 rounded-xl
+                       px-3 py-2.5 text-sm font-medium transition
+                       {{ $isRoles
+                            ? 'bg-primary text-white shadow-md shadow-primary/20'
+                            : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-white' }}">
+
+        <span
+          class="flex h-8 w-8 shrink-0 items-center
+                           justify-center rounded-lg
+                           {{ $isRoles
+                                ? 'bg-white/15'
+                                : 'bg-slate-100 group-hover:bg-slate-200 dark:bg-slate-800 dark:group-hover:bg-slate-700' }}">
+
+          <i
+            data-lucide="shield"
+            class="h-[17px] w-[17px]">
+          </i>
+
+        </span>
+
+
+        <span class="flex-1">
+
+          Master Role
+
+        </span>
+
+
+        @if($isRoles)
+
+        <span
+          class="h-1.5 w-1.5 rounded-full
+                               bg-white">
         </span>
 
         @endif

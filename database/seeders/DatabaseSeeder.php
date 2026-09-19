@@ -10,6 +10,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AdministratorSeeder::class,
+            CircleRoleSeeder::class,
+            CirclePositionSeeder::class,
         ]);
     }
-}
+}   

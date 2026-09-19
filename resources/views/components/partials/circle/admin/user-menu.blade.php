@@ -1,5 +1,5 @@
 @php
-$user = auth()->user();
+    $user = auth()->user();
 @endphp
 
 <div>
@@ -19,16 +19,16 @@ $user = auth()->user();
 
             @if($user?->profile_photo)
 
-            <img
-                src="{{ asset('storage/' . $user->profile_photo) }}"
-                alt="{{ $user->name }}"
-                class="h-11 w-11 shrink-0
+                <img
+                    src="{{ asset('storage/' . $user->profile_photo) }}"
+                    alt="{{ $user->name }}"
+                    class="h-11 w-11 shrink-0
                            rounded-xl object-cover">
 
             @else
 
-            <div
-                class="flex h-11 w-11 shrink-0
+                <div
+                    class="flex h-11 w-11 shrink-0
                            items-center justify-center
                            rounded-xl
                            bg-primary
@@ -37,9 +37,9 @@ $user = auth()->user();
                            shadow-sm
                            shadow-primary/20">
 
-                {{ strtoupper(substr($user?->name ?? 'A', 0, 1)) }}
+                    {{ strtoupper(substr($user?->name ?? 'A', 0, 1)) }}
 
-            </div>
+                </div>
 
             @endif
 
@@ -328,7 +328,6 @@ $user = auth()->user();
                        hover:bg-red-50
                        dark:text-red-400
                        dark:hover:bg-red-500/10">
-
 
                 <span
                     class="flex h-8 w-8 shrink-0

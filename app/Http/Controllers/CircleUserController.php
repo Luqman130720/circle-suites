@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CirclePosition;
+use App\Models\CircleRole;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class CircleUserController extends Controller
 {
-    // =========================================================
-    // UPDATE USER
-    // =========================================================
+    /*
+    |--------------------------------------------------------------------------
+    | UPDATE USER
+    |--------------------------------------------------------------------------
+    */
 
     public function update(Request $request, User $user)
     {
@@ -50,34 +54,13 @@ class CircleUserController extends Controller
             'position' => [
                 'required',
                 'string',
+                'max:100',
             ],
 
             'role' => [
                 'required',
-                Rule::in([
-                    'admin',
-
-                    'installer',
-                    'junior_installer',
-                    'team_leader',
-                    'spv_technical',
-                    'spv_operation',
-                    'corporate_coordinator',
-
-                    'inventory',
-                    'warehouse_admin',
-                    'staff',
-                    'helper',
-
-                    'marketing',
-                    'marketing_admin',
-
-                    'administrator',
-                    'finance',
-                    'finance_admin',
-                    'hr',
-                    'hr_admin',
-                ]),
+                'string',
+                'max:100',
             ],
 
             'status' => [
@@ -92,45 +75,56 @@ class CircleUserController extends Controller
             ],
         ]);
 
-        // =====================================================
-        // DIVISION → POSITION VALIDATION
-        // =====================================================
 
-        $positions = [
-            'Installer / Technician' => [
-                'SPV Operasional',
-                'Technical',
-                'Installer',
-            ],
+        /*
+        |--------------------------------------------------------------------------
+        | VALIDATE POSITION
+        |--------------------------------------------------------------------------
+        */
 
-            'Warehouse & Inventory' => [
-                'Admin',
-                'Staff',
-                'Helper',
-            ],
+        $position = CirclePosition::query()
+            ->where('name', $validated['position'])
+            ->where('division', $validated['division'])
+            ->where('is_active', true)
+            ->first();
 
-            'Sales & Marketing' => [
-                'Marketing Project',
-                'Marketing Eksekutif',
-            ],
-        ];
-
-        if (! in_array(
-            $validated['position'],
-            $positions[$validated['division']] ?? [],
-            true
-        )) {
+        if (! $position) {
             return back()
                 ->withInput()
                 ->withErrors([
                     'position' =>
-                    'Jabatan tidak sesuai dengan divisi yang dipilih.',
+                    'Jabatan tidak tersedia atau tidak sesuai dengan division yang dipilih.',
                 ]);
         }
 
-        // =====================================================
-        // UPDATE USER
-        // =====================================================
+
+        /*
+        |--------------------------------------------------------------------------
+        | VALIDATE ROLE
+        |--------------------------------------------------------------------------
+        */
+
+        $roleExists = CircleRole::query()
+            ->where('slug', $validated['role'])
+            ->where('division', $validated['division'])
+            ->where('is_active', true)
+            ->exists();
+
+        if (! $roleExists) {
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'role' =>
+                    'Role tidak tersedia atau tidak sesuai dengan division yang dipilih.',
+                ]);
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | UPDATE
+        |--------------------------------------------------------------------------
+        */
 
         $user->update([
             'name' => $validated['name'],
@@ -138,9 +132,10 @@ class CircleUserController extends Controller
             'email' => $validated['email'],
             'division' => $validated['division'],
             'position' => $validated['position'],
-            'role' => $validated['role'] ?? null,
+            'role' => $validated['role'],
             'status' => $validated['status'],
         ]);
+
 
         return back()->with(
             'status',
@@ -149,16 +144,14 @@ class CircleUserController extends Controller
     }
 
 
-    // =========================================================
-    // APPROVE USER
-    // =========================================================
+    /*
+    |--------------------------------------------------------------------------
+    | APPROVE USER
+    |--------------------------------------------------------------------------
+    */
 
     public function approve(Request $request, User $user)
     {
-        // =====================================================
-        // PASTIKAN STATUS USER MASIH PENDING
-        // =====================================================
-
         if ($user->status !== 'pending') {
             return back()->withErrors([
                 'user' =>
@@ -166,9 +159,6 @@ class CircleUserController extends Controller
             ]);
         }
 
-        // =====================================================
-        // VALIDASI DATA APPROVAL
-        // =====================================================
 
         $validated = $request->validate([
             'division' => [
@@ -184,76 +174,66 @@ class CircleUserController extends Controller
             'position' => [
                 'required',
                 'string',
+                'max:100',
             ],
 
             'role' => [
                 'required',
-                Rule::in([
-                    'admin',
-
-                    'installer',
-                    'junior_installer',
-                    'team_leader',
-                    'spv_technical',
-                    'spv_operation',
-                    'corporate_coordinator',
-
-                    'inventory',
-                    'warehouse_admin',
-                    'staff',
-                    'helper',
-
-                    'marketing',
-                    'marketing_admin',
-
-                    'administrator',
-                    'finance',
-                    'finance_admin',
-                    'hr',
-                    'hr_admin',
-                ]),
+                'string',
+                'max:100',
             ],
         ]);
 
-        // =====================================================
-        // DIVISION → POSITION VALIDATION
-        // =====================================================
 
-        $positions = [
-            'Installer / Technician' => [
-                'SPV Operasional',
-                'Technical',
-                'Installer',
-            ],
+        /*
+        |--------------------------------------------------------------------------
+        | VALIDATE POSITION
+        |--------------------------------------------------------------------------
+        */
 
-            'Warehouse & Inventory' => [
-                'Admin',
-                'Staff',
-                'Helper',
-            ],
+        $position = CirclePosition::query()
+            ->where('name', $validated['position'])
+            ->where('division', $validated['division'])
+            ->where('is_active', true)
+            ->first();
 
-            'Sales & Marketing' => [
-                'Marketing Project',
-                'Marketing Eksekutif',
-            ],
-        ];
-
-        if (! in_array(
-            $validated['position'],
-            $positions[$validated['division']] ?? [],
-            true
-        )) {
+        if (! $position) {
             return back()
                 ->withInput()
                 ->withErrors([
                     'position' =>
-                    'Jabatan tidak sesuai dengan divisi yang dipilih.',
+                    'Jabatan tidak tersedia atau tidak sesuai dengan division yang dipilih.',
                 ]);
         }
 
-        // =====================================================
-        // APPROVE + SIMPAN DATA USER
-        // =====================================================
+
+        /*
+        |--------------------------------------------------------------------------
+        | VALIDATE ROLE
+        |--------------------------------------------------------------------------
+        */
+
+        $roleExists = CircleRole::query()
+            ->where('slug', $validated['role'])
+            ->where('division', $validated['division'])
+            ->where('is_active', true)
+            ->exists();
+
+        if (! $roleExists) {
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'role' =>
+                    'Role tidak tersedia atau tidak sesuai dengan division yang dipilih.',
+                ]);
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | APPROVE
+        |--------------------------------------------------------------------------
+        */
 
         $user->update([
             'division' => $validated['division'],
@@ -262,6 +242,7 @@ class CircleUserController extends Controller
             'status' => 'active',
         ]);
 
+
         return back()->with(
             'status',
             'User berhasil disetujui dan akun telah diaktifkan.'
@@ -269,16 +250,14 @@ class CircleUserController extends Controller
     }
 
 
-    // =========================================================
-    // REJECT USER
-    // =========================================================
+    /*
+    |--------------------------------------------------------------------------
+    | REJECT USER
+    |--------------------------------------------------------------------------
+    */
 
     public function reject(Request $request, User $user)
     {
-        // =====================================================
-        // VALIDASI ALASAN
-        // =====================================================
-
         $request->validate([
             'reason' => [
                 'nullable',
@@ -287,9 +266,6 @@ class CircleUserController extends Controller
             ],
         ]);
 
-        // =====================================================
-        // PASTIKAN STATUS USER MASIH PENDING
-        // =====================================================
 
         if ($user->status !== 'pending') {
             return back()->withErrors([
@@ -298,17 +274,337 @@ class CircleUserController extends Controller
             ]);
         }
 
-        // =====================================================
-        // REJECT USER
-        // =====================================================
 
         $user->update([
             'status' => 'rejected',
         ]);
 
+
         return back()->with(
             'status',
             'Registrasi user berhasil ditolak.'
+        );
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | MASTER JABATAN
+    |--------------------------------------------------------------------------
+    */
+
+    public function positions()
+    {
+        $positions = CirclePosition::query()
+            ->with('role')
+            ->orderBy('division')
+            ->orderBy('name')
+            ->get();
+
+        $roles = CircleRole::query()
+            ->where('is_active', true)
+            ->orderBy('division')
+            ->orderBy('name')
+            ->get();
+
+
+        return view(
+            'pages.circle.admin.positions',
+            compact(
+                'positions',
+                'roles'
+            )
+        );
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | STORE POSITION
+    |--------------------------------------------------------------------------
+    */
+
+    public function storePosition(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => [
+                'required',
+                'string',
+                'max:100',
+            ],
+
+            'division' => [
+                'required',
+                'string',
+                Rule::in([
+                    'Installer / Technician',
+                    'Warehouse & Inventory',
+                    'Sales & Marketing',
+                ]),
+            ],
+
+            'role_id' => [
+                'required',
+                'integer',
+                'exists:circle_roles,id',
+            ],
+        ]);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | CHECK DUPLICATE POSITION
+        |--------------------------------------------------------------------------
+        */
+
+        $alreadyExists = CirclePosition::query()
+            ->where('name', $validated['name'])
+            ->where('division', $validated['division'])
+            ->exists();
+
+        if ($alreadyExists) {
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'name' =>
+                    'Jabatan tersebut sudah tersedia pada division ini.',
+                ]);
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | CHECK ROLE
+        |--------------------------------------------------------------------------
+        */
+
+        $role = CircleRole::query()
+            ->whereKey($validated['role_id'])
+            ->where('division', $validated['division'])
+            ->where('is_active', true)
+            ->first();
+
+        if (! $role) {
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'role_id' =>
+                    'Role default tidak sesuai dengan division yang dipilih.',
+                ]);
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | CREATE
+        |--------------------------------------------------------------------------
+        */
+
+        CirclePosition::create([
+            'name' => $validated['name'],
+            'division' => $validated['division'],
+            'role_id' => $validated['role_id'],
+            'is_active' => true,
+        ]);
+
+
+        return redirect()
+            ->route('circle.positions.index')
+            ->with(
+                'status',
+                'Jabatan berhasil ditambahkan.'
+            );
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | UPDATE POSITION
+    |--------------------------------------------------------------------------
+    */
+
+    public function updatePosition(
+        Request $request,
+        CirclePosition $position
+    ) {
+        $validated = $request->validate([
+            'name' => [
+                'required',
+                'string',
+                'max:100',
+            ],
+
+            'division' => [
+                'required',
+                'string',
+                Rule::in([
+                    'Installer / Technician',
+                    'Warehouse & Inventory',
+                    'Sales & Marketing',
+                ]),
+            ],
+
+            'role_id' => [
+                'required',
+                'integer',
+                'exists:circle_roles,id',
+            ],
+        ]);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | CHECK DUPLICATE
+        |--------------------------------------------------------------------------
+        */
+
+        $alreadyExists = CirclePosition::query()
+            ->where('name', $validated['name'])
+            ->where('division', $validated['division'])
+            ->whereKeyNot($position->id)
+            ->exists();
+
+        if ($alreadyExists) {
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'name' =>
+                    'Jabatan tersebut sudah tersedia pada division ini.',
+                ]);
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | CHECK ROLE
+        |--------------------------------------------------------------------------
+        */
+
+        $role = CircleRole::query()
+            ->whereKey($validated['role_id'])
+            ->where('division', $validated['division'])
+            ->where('is_active', true)
+            ->first();
+
+        if (! $role) {
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'role_id' =>
+                    'Role default tidak sesuai dengan division yang dipilih.',
+                ]);
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | UPDATE
+        |--------------------------------------------------------------------------
+        */
+
+        $position->update([
+            'name' => $validated['name'],
+            'division' => $validated['division'],
+            'role_id' => $validated['role_id'],
+        ]);
+
+
+        return redirect()
+            ->route('circle.positions.index')
+            ->with(
+                'status',
+                'Jabatan berhasil diperbarui.'
+            );
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | TOGGLE POSITION
+    |--------------------------------------------------------------------------
+    */
+
+    public function togglePosition(
+        CirclePosition $position
+    ) {
+        $position->update([
+            'is_active' => ! $position->is_active,
+        ]);
+
+
+        return back()->with(
+            'status',
+            $position->is_active
+                ? 'Jabatan berhasil diaktifkan.'
+                : 'Jabatan berhasil dinonaktifkan.'
+        );
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | DELETE POSITION
+    |--------------------------------------------------------------------------
+    */
+
+    public function deletePosition(
+        CirclePosition $position
+    ) {
+        /*
+        |--------------------------------------------------------------------------
+        | CHECK USER
+        |--------------------------------------------------------------------------
+        */
+
+        $isUsed = User::query()
+            ->where('position', $position->name)
+            ->where('division', $position->division)
+            ->exists();
+
+
+        if ($isUsed) {
+            return back()->withErrors([
+                'position' =>
+                'Jabatan tidak dapat dihapus karena masih digunakan oleh user.',
+            ]);
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | DELETE
+        |--------------------------------------------------------------------------
+        */
+
+        $position->delete();
+
+
+        return redirect()
+            ->route('circle.positions.index')
+            ->with(
+                'status',
+                'Jabatan berhasil dihapus.'
+            );
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | MASTER ROLE
+    |--------------------------------------------------------------------------
+    */
+
+    public function roles()
+    {
+        $roles = CircleRole::query()
+            ->orderBy('division')
+            ->orderBy('name')
+            ->get();
+
+
+        return view(
+            'pages.circle.admin.roles',
+            compact('roles')
         );
     }
 }

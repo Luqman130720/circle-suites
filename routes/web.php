@@ -152,6 +152,49 @@ Route::middleware([
     // Reject User
     Route::post('/circle/users/{user}/reject', [CircleUserController::class, 'reject'])
         ->name('circle.user.reject');
+
+    /*
+|--------------------------------------------------------------------------
+| MASTER JABATAN
+|--------------------------------------------------------------------------
+*/
+
+    Route::get(
+        '/circle/positions',
+        [CircleUserController::class, 'positions']
+    )->name('circle.positions.index');
+
+    Route::post(
+        '/circle/positions',
+        [CircleUserController::class, 'storePosition']
+    )->name('circle.positions.store');
+
+    Route::put(
+        '/circle/positions/{position}',
+        [CircleUserController::class, 'updatePosition']
+    )->name('circle.positions.update');
+
+    Route::patch(
+        '/circle/positions/{position}/toggle',
+        [CircleUserController::class, 'togglePosition']
+    )->name('circle.positions.toggle');
+
+    Route::delete(
+        '/circle/positions/{position}',
+        [CircleUserController::class, 'deletePosition']
+    )->name('circle.positions.destroy');
+
+
+    /*
+|--------------------------------------------------------------------------
+| MASTER ROLE
+|--------------------------------------------------------------------------
+*/
+
+    Route::get(
+        '/circle/roles',
+        [CircleUserController::class, 'roles']
+    )->name('circle.roles.index');
 });
 
 
